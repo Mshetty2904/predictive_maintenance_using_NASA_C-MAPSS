@@ -15,7 +15,16 @@ from src.preprocessing import (
     remove_unused_columns,
     save_processed_data,
 )
-
+from src.scaler import (
+    scale_data,
+    save_scaler,
+)
+from config import (
+    DATASET,
+    RAW_DATA_PATH,
+    OUTPUT_PATH,
+    MODEL_PATH,
+)
 def main():
 
     loader = DataLoader(DATASET, RAW_DATA_PATH)
@@ -56,8 +65,8 @@ def main():
 
     train = calculate_rul(train)
 
-    train = remove_unused_columns(train)
-    test = remove_unused_columns(test)
+    # train = remove_unused_columns(train)
+    # test = remove_unused_columns(test)
 
     save_processed_data(
         train,
@@ -65,6 +74,18 @@ def main():
         OUTPUT_PATH,
         DATASET,
     )
+
+    train, test, scaler = scale_data(
+        train,
+        test,
+    )
+
+    save_scaler(
+        scaler,
+        MODEL_PATH,
+    )
+
+    print("\nFeature scaling completed.")
 
     print("\nProcessed datasets saved.")
 if __name__ == "__main__":
