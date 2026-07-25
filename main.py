@@ -10,6 +10,11 @@ from src.analysis import (
     low_variance_sensors,
     correlation_heatmap,
 )
+from src.preprocessing import (
+    calculate_rul,
+    remove_unused_columns,
+    save_processed_data,
+)
 
 def main():
 
@@ -49,5 +54,18 @@ def main():
 
     correlation_heatmap(train, OUTPUT_PATH)
 
+    train = calculate_rul(train)
+
+    train = remove_unused_columns(train)
+    test = remove_unused_columns(test)
+
+    save_processed_data(
+        train,
+        test,
+        OUTPUT_PATH,
+        DATASET,
+    )
+
+    print("\nProcessed datasets saved.")
 if __name__ == "__main__":
     main()
