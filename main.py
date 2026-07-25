@@ -1,92 +1,49 @@
-from pathlib import Path
-
-from config import DATASET, OUTPUT_PATH, RAW_DATA_PATH
 from src.data_loader import DataLoader
-from src.plots import plot_rul_distribution, plot_sensor
-from src.validation import validate_dataset
-from src.analysis import (
-    sensor_statistics,
-    constant_sensors,
-    low_variance_sensors,
-    correlation_heatmap,
-)
 from src.preprocessing import (
     calculate_rul,
-    remove_unused_columns,
     save_processed_data,
 )
-from src.scaler import (
-    scale_data,
-    save_scaler,
-)
+
 from config import (
-    DATASET,
+    DATASETS,
     RAW_DATA_PATH,
-    OUTPUT_PATH,
-    MODEL_PATH,
+    PROCESSED_DATA_PATH,
 )
+
+
 def main():
 
-    loader = DataLoader(DATASET, RAW_DATA_PATH)
+    print("=" * 60)
+    print("NASA C-MAPSS DATA PROCESSING")
+    print("=" * 60)
 
-    train, test, rul = loader.load_dataset()
+    for dataset in DATASETS:
 
-    summary = loader.dataset_summary(train, test)
+        print(f"\nProcessing {dataset}...")
 
-    validation = validate_dataset(train, test)
+        loader = DataLoader(
+            dataset,
+            RAW_DATA_PATH,
+        )
 
-    summary.to_csv(
-        Path(OUTPUT_PATH) / "tables" / "dataset_summary.csv",
-        index=False
-    )
+        train, test, rul = loader.load_dataset()
 
-    validation.to_csv(
-        Path(OUTPUT_PATH) / "tables" / "dataset_validation.csv",
-        index=False
-    )
+        train = calculate_rul(train)
 
-    plot_rul_distribution(train, OUTPUT_PATH)
+        save_processed_data(
+            train,
+            test,
+            dataset,
+            PROCESSED_DATA_PATH,
+        )
 
-    plot_sensor(train, "Sensor_2", OUTPUT_PATH)
+        print(f"{dataset} completed.")
+        print(f"Train : {train.shape}")
+        print(f"Test  : {test.shape}")
+        print(f"RUL   : {rul.shape}")
 
-    print(summary)
-    print()
-    print(validation)
+    print("\nAll datasets processed successfully.")
 
-    print("\nOutputs saved successfully.")
 
-    sensor_statistics(train, OUTPUT_PATH)
-
-    constant_sensors(train, OUTPUT_PATH)
-
-    low_variance_sensors(train, OUTPUT_PATH)
-
-    correlation_heatmap(train, OUTPUT_PATH)
-
-    train = calculate_rul(train)
-
-    # train = remove_unused_columns(train)
-    # test = remove_unused_columns(test)
-
-    save_processed_data(
-        train,
-        test,
-        OUTPUT_PATH,
-        DATASET,
-    )
-
-    train, test, scaler = scale_data(
-        train,
-        test,
-    )
-
-    save_scaler(
-        scaler,
-        MODEL_PATH,
-    )
-
-    print("\nFeature scaling completed.")
-
-    print("\nProcessed datasets saved.")
 if __name__ == "__main__":
     main()

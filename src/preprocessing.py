@@ -1,39 +1,48 @@
 from pathlib import Path
 
-import pandas as pd
 
+def calculate_rul(train_df):
+    """
+    Calculate Remaining Useful Life (RUL)
+    for every engine.
+    """
 
-def calculate_rul(train):
-    """Calculate Remaining Useful Life (RUL) for each engine."""
+    train = train_df.copy()
 
-    max_cycle = train.groupby("Engine_ID")["Cycle"].transform("max")
+    max_cycle = (
+        train
+        .groupby("Engine_ID")["Cycle"]
+        .transform("max")
+    )
+
     train["RUL"] = max_cycle - train["Cycle"]
 
     return train
 
 
-def remove_unused_columns(df):
-    """Remove operating settings."""
+def save_processed_data(
+    train,
+    test,
+    dataset_name,
+    processed_path,
+):
+    """
+    Save processed train and test datasets.
+    """
 
-    return df.drop(columns=["Setting_1", "Setting_2", "Setting_3"])
+    processed_path = Path(processed_path)
 
-
-def save_processed_data(train, test, output_path, dataset):
-
-    processed_path = (
-        Path(output_path).parent
-        / "dataset"
-        / "processed"
+    processed_path.mkdir(
+        parents=True,
+        exist_ok=True,
     )
 
-    processed_path.mkdir(parents=True, exist_ok=True)
-
     train.to_csv(
-        processed_path / f"train_{dataset}.csv",
+        processed_path / f"{dataset_name}_train.csv",
         index=False,
     )
 
     test.to_csv(
-        processed_path / f"test_{dataset}.csv",
+        processed_path / f"{dataset_name}_test.csv",
         index=False,
     )

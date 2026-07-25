@@ -5,28 +5,26 @@ Research:
 Multi Model Predictive Maintenance using SHAP Explainability
 and Automated Drift Triggered Retraining on Cloud
 """
-
-from pathlib import Path
-
 # ==========================================================
 # PROJECT PATHS
 # ==========================================================
 
+from pathlib import Path
+
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 RAW_DATA_PATH = PROJECT_ROOT / "dataset" / "raw"
-DATASET = "FD001"
-
 PROCESSED_DATA_PATH = PROJECT_ROOT / "dataset" / "processed"
 
-WINDOW_DATA_PATH = PROJECT_ROOT / "dataset" / "windows"
-
+OUTPUT_PATH = PROJECT_ROOT / "outputs"
 MODEL_PATH = PROJECT_ROOT / "models"
 
-OUTPUT_PATH = PROJECT_ROOT / "outputs"
-
-LOG_PATH = PROJECT_ROOT / "logs"
-
+DATASETS = [
+    "FD001",
+    "FD002",
+    "FD003",
+    "FD004",
+]
 # ==========================================================
 # DATASET
 # ==========================================================
