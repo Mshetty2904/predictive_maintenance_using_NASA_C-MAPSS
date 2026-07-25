@@ -1,4 +1,5 @@
 from pathlib import Path
+from pyexpat import model
 
 import joblib
 
@@ -6,7 +7,7 @@ from xgboost import XGBRegressor
 
 from src.window_generator import flatten_windows
 
-
+from sklearn.model_selection import train_test_split
 class XGBoostTrainer:
     """
     Train and save an XGBoost model.
@@ -23,8 +24,15 @@ class XGBoostTrainer:
 
     def train(self, bundle):
 
-        X_train = flatten_windows(bundle.X_train)
-        X_test = flatten_windows(bundle.X_test)
+        X = flatten_windows(bundle.X_train)
+        y = bundle.y_train
+
+        X_train, X_valid, y_train, y_valid = train_test_split(
+            X,
+            y,
+            test_size=0.20,
+            random_state=42,
+        )
 
         model = XGBRegressor(
             n_estimators=200,
@@ -36,9 +44,28 @@ class XGBoostTrainer:
 
         model.fit(
             X_train,
-            bundle.y_train,
+            y_train,
+        )
+        validation_predictions = model.predict(
+            X_valid
         )
 
+        validation_rmse = (
+            (
+                (
+                    (
+                        y_valid
+                        - validation_predictions
+                    )
+                    ** 2
+                ).mean()
+            ) ** 0.5
+        )
+
+        print(
+            f"Validation RMSE : {validation_rmse:.3f}"
+        )
+        X_test = flatten_windows(bundle.X_test)
         predictions = model.predict(X_test)
 
         model_file = (
