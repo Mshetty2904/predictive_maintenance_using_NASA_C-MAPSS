@@ -61,9 +61,12 @@ XGB_PARAMS = {
 # LSTM
 # ==========================================================
 
-LSTM_EPOCHS = 50
-
-LSTM_BATCH_SIZE = 64
+LSTM_UNITS = 64
+DROPOUT = 0.2
+BATCH_SIZE = 64
+EPOCHS = 50
+PATIENCE = 5
+LEARNING_RATE = 0.001
 
 # ==========================================================
 # CNN-LSTM
@@ -87,3 +90,5 @@ STEP_SIZE = 1
 VALIDATION_SIZE = 0.20
 
 RANDOM_STATE = 42
+
+SCALER_PATH = PROJECT_ROOT / "scalers"

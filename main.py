@@ -14,7 +14,8 @@ from src.model_utils import (
     evaluate_model,
     save_metrics,
 )
-
+from src.lstm_trainer import LSTMTrainer
+from config import SCALER_PATH
 
 def main():
 
@@ -36,8 +37,9 @@ def main():
 
         bundle = pipeline.run()
 
-        trainer = XGBoostTrainer(
+        trainer = LSTMTrainer(
             MODEL_PATH,
+            SCALER_PATH,
         )
 
         model, predictions = trainer.train(

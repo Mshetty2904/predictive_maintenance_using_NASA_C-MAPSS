@@ -1,36 +1,69 @@
 from pathlib import Path
+
 import joblib
+import numpy as np
 
 from sklearn.preprocessing import StandardScaler
 
 
-def scale_data(train, test):
+class FeatureScaler:
+    """
+    Standardize features for deep learning models.
+    """
 
-    scaler = StandardScaler()
+    def __init__(self, scaler_path):
 
-    sensor_columns = [
-        col for col in train.columns
-        if col.startswith("Sensor_")
-    ]
+        self.scaler_path = Path(scaler_path)
 
-    train[sensor_columns] = scaler.fit_transform(
-        train[sensor_columns]
-    )
+        self.scaler_path.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
 
-    test[sensor_columns] = scaler.transform(
-        test[sensor_columns]
-    )
+    def scale(self, bundle):
 
-    return train, test, scaler
+        n_train, time_steps, n_features = bundle.X_train.shape
+        n_test = bundle.X_test.shape[0]
 
+        X_train = bundle.X_train.reshape(
+            -1,
+            n_features,
+        )
 
-def save_scaler(scaler, model_path):
+        X_test = bundle.X_test.reshape(
+            -1,
+            n_features,
+        )
 
-    model_path = Path(model_path)
+        scaler = StandardScaler()
 
-    model_path.mkdir(parents=True, exist_ok=True)
+        X_train = scaler.fit_transform(
+            X_train,
+        )
 
-    joblib.dump(
-        scaler,
-        model_path / "standard_scaler.pkl"
-    )
+        X_test = scaler.transform(
+            X_test,
+        )
+
+        X_train = X_train.reshape(
+            n_train,
+            time_steps,
+            n_features,
+        )
+
+        X_test = X_test.reshape(
+            n_test,
+            time_steps,
+            n_features,
+        )
+
+        scaler_file = (
+            self.scaler_path
+            / f"{bundle.dataset_name}_scaler.pkl"
+        )
+
+        joblib.dump(
+            scaler,
+            scaler_file,
+        )
+        return X_train, X_test
