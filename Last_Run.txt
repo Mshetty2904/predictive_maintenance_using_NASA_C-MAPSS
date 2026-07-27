@@ -1,0 +1,817 @@
+Epoch 1: val_loss improved from inf to 460.43683, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 19s 25ms/step - loss: 2474.2954 - mae: 36.7641 - val_loss: 460.4368 - val_mae: 17.0962 - learning_rate: 0.0010
+Epoch 2/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 593.3933 - mae: 19.1396 
+Epoch 2: val_loss improved from 460.43683 to 436.73947, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 25ms/step - loss: 593.3274 - mae: 19.1385 - val_loss: 436.7395 - val_mae: 15.6562 - learning_rate: 0.0010
+Epoch 3/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 513.6481 - mae: 17.6367 
+Epoch 3: val_loss did not improve from 436.73947
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 25ms/step - loss: 513.5825 - mae: 17.6355 - val_loss: 485.2845 - val_mae: 17.3693 - learning_rate: 0.0010
+Epoch 4/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 436.4234 - mae: 16.1730 
+Epoch 4: val_loss improved from 436.73947 to 348.17032, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 436.4193 - mae: 16.1730 - val_loss: 348.1703 - val_mae: 13.1658 - learning_rate: 0.0010
+Epoch 5/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 397.7594 - mae: 15.3986 
+Epoch 5: val_loss did not improve from 348.17032
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 397.7425 - mae: 15.3982 - val_loss: 443.5160 - val_mae: 14.5170 - learning_rate: 0.0010
+Epoch 6/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 374.4109 - mae: 14.8699 
+Epoch 6: val_loss did not improve from 348.17032
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 374.3991 - mae: 14.8697 - val_loss: 424.2386 - val_mae: 16.4094 - learning_rate: 0.0010
+Epoch 7/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 351.8775 - mae: 14.3364 
+Epoch 7: val_loss did not improve from 348.17032
+
+Epoch 7: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 25ms/step - loss: 351.8594 - mae: 14.3361 - val_loss: 447.5617 - val_mae: 16.7413 - learning_rate: 0.0010
+Epoch 8/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 315.1993 - mae: 13.5915   
+Epoch 8: val_loss improved from 348.17032 to 280.55557, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 315.1527 - mae: 13.5903 - val_loss: 280.5556 - val_mae: 13.0484 - learning_rate: 5.0000e-04
+Epoch 9/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 289.8578 - mae: 12.9714 
+Epoch 9: val_loss did not improve from 280.55557
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 289.8496 - mae: 12.9712 - val_loss: 388.7186 - val_mae: 16.0948 - learning_rate: 5.0000e-04
+Epoch 10/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 275.9622 - mae: 12.6611 
+Epoch 10: val_loss did not improve from 280.55557
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 275.9561 - mae: 12.6610 - val_loss: 350.1634 - val_mae: 14.9149 - learning_rate: 5.0000e-04
+Epoch 11/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 263.7698 - mae: 12.3675 
+Epoch 11: val_loss did not improve from 280.55557
+
+Epoch 11: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 263.7607 - mae: 12.3672 - val_loss: 309.1633 - val_mae: 14.4596 - learning_rate: 5.0000e-04
+Epoch 12/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 228.1551 - mae: 11.5400 
+Epoch 12: val_loss did not improve from 280.55557
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 228.1307 - mae: 11.5392 - val_loss: 339.3673 - val_mae: 14.3415 - learning_rate: 2.5000e-04
+Epoch 13/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 207.8776 - mae: 10.9744 
+Epoch 13: val_loss did not improve from 280.55557
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 207.8762 - mae: 10.9744 - val_loss: 295.1846 - val_mae: 13.3119 - learning_rate: 2.5000e-04
+Epoch 14/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 199.5584 - mae: 10.7279 
+Epoch 14: val_loss did not improve from 280.55557
+
+Epoch 14: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 199.5426 - mae: 10.7275 - val_loss: 329.4145 - val_mae: 14.3568 - learning_rate: 2.5000e-04
+Epoch 15/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 171.7949 - mae: 10.0212  
+Epoch 15: val_loss did not improve from 280.55557
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 171.7939 - mae: 10.0212 - val_loss: 376.4450 - val_mae: 15.1053 - learning_rate: 1.2500e-04
+Epoch 16/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 165.2088 - mae: 9.7668  
+Epoch 16: val_loss did not improve from 280.55557
+650/650 ━━━━━━━━━━━━━━━━━━━━ 16s 24ms/step - loss: 165.1990 - mae: 9.7667 - val_loss: 351.9220 - val_mae: 14.3982 - learning_rate: 1.2500e-04
+Epoch 16: early stopping
+Restoring model weights from the end of the best epoch: 8.
+Train Shape      : (53759, 27)
+Test Shape       : (33991, 26)
+Train Windows    : (46219, 30, 21)
+Test Windows     : (259, 30, 21)
+
+Model Performance
+     RMSE     MAE    R2
+0  16.042  12.378  0.86
+
+Processing FD003...
+
+Running 5-Fold Cross Validation...
+Fold 1: RMSE=4.611 MAE=2.863 R2=0.987
+Fold 2: RMSE=9.232 MAE=6.941 R2=0.951
+Fold 3: RMSE=9.520 MAE=6.755 R2=0.947
+Fold 4: RMSE=2.702 MAE=1.712 R2=0.996
+Fold 5: RMSE=10.082 MAE=6.806 R2=0.942
+
+Average Cross Validation Performance
+RMSE : 7.229
+MAE  : 5.015
+R2   : 0.964
+
+Training Final Model...
+Epoch 1/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 4298.8457 - mae: 50.8031  
+Epoch 1: val_loss improved from inf to 549.31201, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 11s 29ms/step - loss: 4283.1646 - mae: 50.6704 - val_loss: 549.3120 - val_mae: 16.2696 - learning_rate: 0.0010
+Epoch 2/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 412.9583 - mae: 15.5463 
+Epoch 2: val_loss improved from 549.31201 to 318.98587, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 412.8730 - mae: 15.5448 - val_loss: 318.9859 - val_mae: 12.8245 - learning_rate: 0.0010
+Epoch 3/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 406.3352 - mae: 15.2321 
+Epoch 3: val_loss did not improve from 318.98587
+307/307 ━━━━━━━━━━━━━━━━━━━━ 9s 28ms/step - loss: 406.2951 - mae: 15.2321 - val_loss: 724.4995 - val_mae: 22.6892 - learning_rate: 0.0010
+Epoch 4/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 433.3997 - mae: 15.9111 
+Epoch 4: val_loss improved from 318.98587 to 276.52106, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 28ms/step - loss: 433.2455 - mae: 15.9082 - val_loss: 276.5211 - val_mae: 11.1388 - learning_rate: 0.0010
+Epoch 5/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 327.4072 - mae: 13.7447 
+Epoch 5: val_loss did not improve from 276.52106
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 327.2661 - mae: 13.7425 - val_loss: 330.7225 - val_mae: 13.6929 - learning_rate: 0.0010
+Epoch 6/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 275.4698 - mae: 12.6263 
+Epoch 6: val_loss improved from 276.52106 to 248.00401, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 275.4989 - mae: 12.6268 - val_loss: 248.0040 - val_mae: 12.4622 - learning_rate: 0.0010
+Epoch 7/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 286.3518 - mae: 12.9997 
+Epoch 7: val_loss did not improve from 248.00401
+307/307 ━━━━━━━━━━━━━━━━━━━━ 9s 28ms/step - loss: 286.3190 - mae: 12.9984 - val_loss: 287.6599 - val_mae: 12.6954 - learning_rate: 0.0010
+Epoch 8/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 274.9703 - mae: 12.7147 
+Epoch 8: val_loss did not improve from 248.00401
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 28ms/step - loss: 274.9164 - mae: 12.7130 - val_loss: 466.4733 - val_mae: 16.8427 - learning_rate: 0.0010
+Epoch 9/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 250.1192 - mae: 12.0045 
+Epoch 9: val_loss did not improve from 248.00401
+
+Epoch 9: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 28ms/step - loss: 250.0375 - mae: 12.0026 - val_loss: 305.5631 - val_mae: 12.2663 - learning_rate: 0.0010
+Epoch 10/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 218.8144 - mae: 11.2537 
+Epoch 10: val_loss improved from 248.00401 to 220.90201, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 218.7518 - mae: 11.2517 - val_loss: 220.9020 - val_mae: 9.5759 - learning_rate: 5.0000e-04
+Epoch 11/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 200.4437 - mae: 10.7276 
+Epoch 11: val_loss did not improve from 220.90201
+307/307 ━━━━━━━━━━━━━━━━━━━━ 9s 28ms/step - loss: 200.4198 - mae: 10.7270 - val_loss: 294.0288 - val_mae: 12.2904 - learning_rate: 5.0000e-04
+Epoch 12/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 199.9633 - mae: 10.7887
+Epoch 12: val_loss improved from 220.90201 to 143.98427, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 199.8826 - mae: 10.7862 - val_loss: 143.9843 - val_mae: 8.5119 - learning_rate: 5.0000e-04
+Epoch 13/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 200.2453 - mae: 10.5799
+Epoch 13: val_loss did not improve from 143.98427
+307/307 ━━━━━━━━━━━━━━━━━━━━ 9s 28ms/step - loss: 200.2523 - mae: 10.5803 - val_loss: 184.1801 - val_mae: 10.1658 - learning_rate: 5.0000e-04
+Epoch 14/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 185.0846 - mae: 10.2925
+Epoch 14: val_loss did not improve from 143.98427
+307/307 ━━━━━━━━━━━━━━━━━━━━ 9s 28ms/step - loss: 185.0898 - mae: 10.2926 - val_loss: 220.5576 - val_mae: 9.6503 - learning_rate: 5.0000e-04
+Epoch 15/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 168.8651 - mae: 9.7337  
+Epoch 15: val_loss did not improve from 143.98427
+
+Epoch 15: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 168.8564 - mae: 9.7336 - val_loss: 182.2605 - val_mae: 9.9388 - learning_rate: 5.0000e-04
+Epoch 16/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 168.8594 - mae: 9.7822  
+Epoch 16: val_loss did not improve from 143.98427
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 168.8081 - mae: 9.7805 - val_loss: 189.5457 - val_mae: 9.7553 - learning_rate: 2.5000e-04
+Epoch 17/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 161.9994 - mae: 9.6297 
+Epoch 17: val_loss did not improve from 143.98427
+307/307 ━━━━━━━━━━━━━━━━━━━━ 9s 28ms/step - loss: 161.9475 - mae: 9.6279 - val_loss: 158.4324 - val_mae: 8.7286 - learning_rate: 2.5000e-04
+Epoch 18/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 146.1317 - mae: 9.0967  
+Epoch 18: val_loss did not improve from 143.98427
+
+Epoch 18: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 146.1361 - mae: 9.0968 - val_loss: 175.6308 - val_mae: 9.1473 - learning_rate: 2.5000e-04
+Epoch 19/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 144.4023 - mae: 9.0577  
+Epoch 19: val_loss did not improve from 143.98427
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 144.3972 - mae: 9.0575 - val_loss: 171.8740 - val_mae: 9.4086 - learning_rate: 1.2500e-04
+Epoch 20/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 139.6503 - mae: 8.8951 
+Epoch 20: val_loss did not improve from 143.98427
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 139.6588 - mae: 8.8954 - val_loss: 180.9430 - val_mae: 8.9724 - learning_rate: 1.2500e-04
+Epoch 20: early stopping
+Restoring model weights from the end of the best epoch: 12.
+Train Shape      : (24720, 27)
+Test Shape       : (16596, 26)
+Train Windows    : (21820, 30, 21)
+Test Windows     : (100, 30, 21)
+
+Model Performance
+     RMSE    MAE     R2
+0  13.054  9.344  0.889
+
+Processing FD004...
+
+Running 5-Fold Cross Validation...
+WARNING:tensorflow:5 out of the last 142 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000240F42497E0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+Fold 1: RMSE=19.336 MAE=15.051 R2=0.783
+Fold 2: RMSE=2.299 MAE=1.578 R2=0.997
+Fold 3: RMSE=2.483 MAE=1.618 R2=0.996
+Fold 4: RMSE=7.192 MAE=4.578 R2=0.970
+Fold 5: RMSE=3.451 MAE=2.223 R2=0.993
+
+Average Cross Validation Performance
+RMSE : 6.952
+MAE  : 5.009
+R2   : 0.948
+
+Training Final Model...
+Epoch 1/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 2700.9907 - mae: 37.5894 
+Epoch 1: val_loss improved from inf to 624.53577, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 27s 33ms/step - loss: 2697.0322 - mae: 37.5551 - val_loss: 624.5358 - val_mae: 16.7538 - learning_rate: 0.0010
+Epoch 2/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 532.1564 - mae: 17.7265 
+Epoch 2: val_loss improved from 624.53577 to 446.94659, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 24s 32ms/step - loss: 532.1229 - mae: 17.7258 - val_loss: 446.9466 - val_mae: 15.0165 - learning_rate: 0.0010
+Epoch 3/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 35ms/step - loss: 486.0821 - mae: 16.7772 
+Epoch 3: val_loss did not improve from 446.94659
+760/760 ━━━━━━━━━━━━━━━━━━━━ 28s 36ms/step - loss: 486.0379 - mae: 16.7764 - val_loss: 599.6373 - val_mae: 16.9283 - learning_rate: 0.0010
+Epoch 4/75
+760/760 ━━━━━━━━━━━━━━━━━━━━ 0s 35ms/step - loss: 445.9744 - mae: 15.9207 
+Epoch 4: val_loss improved from 446.94659 to 444.61447, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 28s 37ms/step - loss: 445.9695 - mae: 15.9206 - val_loss: 444.6145 - val_mae: 14.1263 - learning_rate: 0.0010
+Epoch 5/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step - loss: 430.9391 - mae: 15.5559 
+Epoch 5: val_loss improved from 444.61447 to 377.80554, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 27s 36ms/step - loss: 430.8882 - mae: 15.5550 - val_loss: 377.8055 - val_mae: 14.8468 - learning_rate: 0.0010
+Epoch 6/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 382.3469 - mae: 14.6397 
+Epoch 6: val_loss improved from 377.80554 to 315.54108, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 27s 35ms/step - loss: 382.3325 - mae: 14.6394 - val_loss: 315.5411 - val_mae: 14.2055 - learning_rate: 0.0010
+Epoch 7/75
+760/760 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 348.2737 - mae: 13.9761 
+Epoch 7: val_loss did not improve from 315.54108
+760/760 ━━━━━━━━━━━━━━━━━━━━ 27s 35ms/step - loss: 348.2781 - mae: 13.9761 - val_loss: 512.3635 - val_mae: 18.4680 - learning_rate: 0.0010
+Epoch 8/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 333.0290 - mae: 13.5711 
+Epoch 8: val_loss did not improve from 315.54108
+760/760 ━━━━━━━━━━━━━━━━━━━━ 26s 34ms/step - loss: 332.9976 - mae: 13.5704 - val_loss: 348.4085 - val_mae: 14.5596 - learning_rate: 0.0010
+Epoch 9/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 32ms/step - loss: 300.8379 - mae: 12.8495 
+Epoch 9: val_loss did not improve from 315.54108
+
+Epoch 9: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+760/760 ━━━━━━━━━━━━━━━━━━━━ 26s 34ms/step - loss: 300.8024 - mae: 12.8487 - val_loss: 377.7516 - val_mae: 16.2473 - learning_rate: 0.0010
+Epoch 10/75
+760/760 ━━━━━━━━━━━━━━━━━━━━ 0s 32ms/step - loss: 224.7637 - mae: 11.1093 
+Epoch 10: val_loss did not improve from 315.54108
+760/760 ━━━━━━━━━━━━━━━━━━━━ 25s 33ms/step - loss: 224.7527 - mae: 11.1090 - val_loss: 346.9078 - val_mae: 14.7880 - learning_rate: 5.0000e-04
+Epoch 11/75
+760/760 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - loss: 186.7891 - mae: 10.1612 
+Epoch 11: val_loss did not improve from 315.54108
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 29ms/step - loss: 186.7870 - mae: 10.1611 - val_loss: 346.2389 - val_mae: 14.4942 - learning_rate: 5.0000e-04
+Epoch 12/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 162.5510 - mae: 9.4793  
+Epoch 12: val_loss did not improve from 315.54108
+
+Epoch 12: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 162.5415 - mae: 9.4791 - val_loss: 351.8680 - val_mae: 14.3069 - learning_rate: 5.0000e-04
+Epoch 13/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 133.4030 - mae: 8.6092  
+Epoch 13: val_loss did not improve from 315.54108
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 133.3842 - mae: 8.6087 - val_loss: 349.7934 - val_mae: 13.8044 - learning_rate: 2.5000e-04
+Epoch 14/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 119.0831 - mae: 8.1654  
+Epoch 14: val_loss did not improve from 315.54108
+760/760 ━━━━━━━━━━━━━━━━━━━━ 21s 28ms/step - loss: 119.0805 - mae: 8.1653 - val_loss: 348.8150 - val_mae: 14.6650 - learning_rate: 2.5000e-04
+Epoch 14: early stopping
+Restoring model weights from the end of the best epoch: 6.
+Train Shape      : (61249, 27)
+Test Shape       : (41214, 26)
+Train Windows    : (54028, 30, 21)
+Test Windows     : (248, 30, 21)
+
+Model Performance
+     RMSE     MAE     R2
+0  21.828  16.599  0.742
+
+Pipeline completed successfully.
+PS E:\PdM> 
+PS E:\PdM> 
+PS E:\PdM> git add .     
+warning: in the working copy of 'config.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/data_loader.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/dataset_bundle.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/lstm_trainer.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pipeline.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/preprocessing.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/window_generator.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'trial.py', LF will be replaced by CRLF the next time Git touches it
+PS E:\PdM> git commit -m "Implement GroupKFold engine-wise cross-validation for LSTM"
+[main df70b3d] Implement GroupKFold engine-wise cross-validation for LSTM
+ 24 files changed, 71245 insertions(+), 71094 deletions(-)
+ create mode 100644 trial.py
+PS E:\PdM> git push origin main   
+Enumerating objects: 60, done.
+Counting objects: 100% (60/60), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (30/30), done.
+Writing objects:  35% (12/34), 984Writing objects:  35% (12/34), 1.6Writing objects:  38% (13/34), 1.6Writing objects:  41% (14/34), 2.7Writing objects:  44% (15/34), 2.7Writing objects:  47% (16/34), 2.7Writing objects:  50% (17/34), 2.7Writing objects:  52% (18/34), 2.7Writing objects:  55% (19/34), 2.7Writing objects:  58% (20/34), 2.7Writing objects:  61% (21/34), 2.7Writing objects:  64% (22/34), 2.7Writing objects:  67% (23/34), 2.7Writing objects:  70% (24/34), 2.7Writing objects:  73% (25/34), 2.7Writing objects:  76% (26/34), 2.7Writing objects:  79% (27/34), 2.7Writing objects:  82% (28/34), 2.7Writing objects:  85% (29/34), 2.7Writing objects:  88% (30/34), 2.7Writing objects:  91% (31/34), 2.7Writing objects:  94% (32/34), 2.7Writing objects:  97% (33/34), 2.7Writing objects: 100% (34/34), 2.7Writing objects: 100% (34/34), 6.32 MiB | 1.61 MiB/s, done.
+Total 34 (delta 15), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas:   0% (0/remote: Resolving deltas:   6% (1/remote: Resolving deltas:  13% (2/remote: Resolving deltas:  20% (3/remote: Resolving deltas:  26% (4/remote: Resolving deltas:  33% (5/remote: Resolving deltas:  40% (6/remote: Resolving deltas:  46% (7/remote: Resolving deltas:  53% (8/remote: Resolving deltas:  60% (9/remote: Resolving deltas:  66% (10remote: Resolving deltas:  73% (11remote: Resolving deltas:  80% (12remote: Resolving deltas:  86% (13remote: Resolving deltas:  93% (14remote: Resolving deltas: 100% (15remote: Resolving deltas: 100% (15/15), completed with 15 local objects.
+To https://github.com/Mshetty2904/predictive_maintenance_using_NASA_C-MAPSS
+   a0eb98f..df70b3d  main -> main
+PS E:\PdM> python main.py
+2026-07-27 22:03:02.712687: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-07-27 22:03:05.270461: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+============================================================
+NASA C-MAPSS DATA PROCESSING
+============================================================
+
+Processing FD001...
+
+Running 5-Fold Cross Validation...
+2026-07-27 22:03:16.659156: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Epoch 18: early stopping
+Restoring model weights from the end of the best epoch: 10.
+Fold 1: RMSE=14.076 MAE=10.635 R2=0.887
+Epoch 20: early stopping
+Restoring model weights from the end of the best epoch: 12.
+Fold 2: RMSE=14.373 MAE=10.444 R2=0.882
+Epoch 25: early stopping
+Restoring model weights from the end of the best epoch: 17.
+Fold 3: RMSE=12.772 MAE=9.667 R2=0.907
+Epoch 14: early stopping
+Restoring model weights from the end of the best epoch: 6.
+Fold 4: RMSE=15.051 MAE=11.016 R2=0.870
+Epoch 12: early stopping
+Restoring model weights from the end of the best epoch: 4.
+Fold 5: RMSE=14.065 MAE=10.531 R2=0.887
+
+Average Cross Validation Performance
+RMSE : 14.068
+MAE  : 10.459
+R2   : 0.886
+
+Training Final Model...
+Epoch 1/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 4338.3511 - mae: 52.4467 
+Epoch 1: val_loss improved from inf to 727.89276, saving model to E:\PdM\models\FD001_lstm.keras
+250/250 ━━━━━━━━━━━━━━━━━━━━ 12s 35ms/step - loss: 4320.5732 - mae: 52.2944 - val_loss: 727.8928 - val_mae: 21.8216 - learning_rate: 0.0010
+Epoch 2/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 444.3195 - mae: 16.3904 
+Epoch 2: val_loss improved from 727.89276 to 269.53485, saving model to E:\PdM\models\FD001_lstm.keras
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 444.0126 - mae: 16.3837 - val_loss: 269.5349 - val_mae: 12.3994 - learning_rate: 0.0010
+Epoch 3/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 344.5269 - mae: 14.2350 
+Epoch 3: val_loss did not improve from 269.53485
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 344.4387 - mae: 14.2330 - val_loss: 273.0834 - val_mae: 12.3280 - learning_rate: 0.0010
+Epoch 4/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 322.7444 - mae: 13.6725 
+Epoch 4: val_loss improved from 269.53485 to 259.72681, saving model to E:\PdM\models\FD001_lstm.keras
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 322.6424 - mae: 13.6706 - val_loss: 259.7268 - val_mae: 11.9246 - learning_rate: 0.0010
+Epoch 5/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 267.9227 - mae: 12.4974 
+Epoch 5: val_loss did not improve from 259.72681
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 31ms/step - loss: 268.1293 - mae: 12.5021 - val_loss: 273.6726 - val_mae: 12.8525 - learning_rate: 0.0010
+Epoch 6/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 298.1714 - mae: 13.2571  
+Epoch 6: val_loss improved from 259.72681 to 255.49760, saving model to E:\PdM\models\FD001_lstm.keras
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 33ms/step - loss: 298.0690 - mae: 13.2542 - val_loss: 255.4976 - val_mae: 12.3959 - learning_rate: 0.0010
+Epoch 7/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 245.5979 - mae: 11.9018 
+Epoch 7: val_loss improved from 255.49760 to 226.42418, saving model to E:\PdM\models\FD001_lstm.keras
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 245.6222 - mae: 11.9026 - val_loss: 226.4242 - val_mae: 11.0418 - learning_rate: 0.0010
+Epoch 8/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 236.5064 - mae: 11.7199 
+Epoch 8: val_loss did not improve from 226.42418
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 31ms/step - loss: 236.5002 - mae: 11.7193 - val_loss: 273.5744 - val_mae: 12.5107 - learning_rate: 0.0010
+Epoch 9/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 219.2993 - mae: 11.2404 
+Epoch 9: val_loss did not improve from 226.42418
+250/250 ━━━━━━━━━━━━━━━━━━━━ 10s 31ms/step - loss: 219.3150 - mae: 11.2407 - val_loss: 297.1814 - val_mae: 12.7543 - learning_rate: 0.0010
+Epoch 10/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 214.8716 - mae: 11.1198 
+Epoch 10: val_loss did not improve from 226.42418
+
+Epoch 10: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 214.8521 - mae: 11.1193 - val_loss: 263.8299 - val_mae: 11.7279 - learning_rate: 0.0010
+Epoch 11/75
+250/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 191.4868 - mae: 10.4567
+Epoch 11: val_loss did not improve from 226.42418
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 191.4661 - mae: 10.4562 - val_loss: 265.4490 - val_mae: 12.5854 - learning_rate: 5.0000e-04
+Epoch 12/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 180.8773 - mae: 10.1408 
+Epoch 12: val_loss did not improve from 226.42418
+250/250 ━━━━━━━━━━━━━━━━━━━━ 7s 27ms/step - loss: 180.8579 - mae: 10.1404 - val_loss: 262.4456 - val_mae: 12.3686 - learning_rate: 5.0000e-04
+Epoch 13/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 165.1996 - mae: 9.7474 
+Epoch 13: val_loss did not improve from 226.42418
+
+Epoch 13: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+250/250 ━━━━━━━━━━━━━━━━━━━━ 7s 28ms/step - loss: 165.2167 - mae: 9.7477 - val_loss: 237.5747 - val_mae: 11.6605 - learning_rate: 5.0000e-04
+Epoch 14/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 158.0070 - mae: 9.5168 
+Epoch 14: val_loss improved from 226.42418 to 226.21404, saving model to E:\PdM\models\FD001_lstm.keras
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 33ms/step - loss: 157.9942 - mae: 9.5164 - val_loss: 226.2140 - val_mae: 10.4960 - learning_rate: 2.5000e-04
+Epoch 15/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 159.9197 - mae: 9.5636  
+Epoch 15: val_loss did not improve from 226.21404
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 33ms/step - loss: 159.8781 - mae: 9.5622 - val_loss: 232.5171 - val_mae: 10.9710 - learning_rate: 2.5000e-04
+Epoch 16/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 145.4925 - mae: 9.1066 
+Epoch 16: val_loss did not improve from 226.21404
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 145.4962 - mae: 9.1068 - val_loss: 269.7564 - val_mae: 12.3231 - learning_rate: 2.5000e-04
+Epoch 17/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 142.8897 - mae: 8.9929 
+Epoch 17: val_loss did not improve from 226.21404
+
+Epoch 17: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 33ms/step - loss: 142.8750 - mae: 8.9928 - val_loss: 279.6411 - val_mae: 12.3240 - learning_rate: 2.5000e-04
+Epoch 18/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 139.8991 - mae: 8.9843 
+Epoch 18: val_loss did not improve from 226.21404
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 139.8782 - mae: 8.9834 - val_loss: 236.6824 - val_mae: 11.0861 - learning_rate: 1.2500e-04
+Epoch 19/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 147.0402 - mae: 9.1473 
+Epoch 19: val_loss did not improve from 226.21404
+250/250 ━━━━━━━━━━━━━━━━━━━━ 10s 33ms/step - loss: 146.9996 - mae: 9.1462 - val_loss: 237.8052 - val_mae: 10.8959 - learning_rate: 1.2500e-04
+Epoch 20/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 130.6742 - mae: 8.6068 
+Epoch 20: val_loss did not improve from 226.21404
+
+Epoch 20: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 130.6615 - mae: 8.6065 - val_loss: 258.7511 - val_mae: 11.7520 - learning_rate: 1.2500e-04
+Epoch 21/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 30ms/step - loss: 130.9522 - mae: 8.6573 
+Epoch 21: val_loss did not improve from 226.21404
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 130.9365 - mae: 8.6567 - val_loss: 254.4498 - val_mae: 11.6369 - learning_rate: 6.2500e-05
+Epoch 22/75
+249/250 ━━━━━━━━━━━━━━━━━━━━ 0s 31ms/step - loss: 126.9610 - mae: 8.4512 
+Epoch 22: val_loss did not improve from 226.21404
+250/250 ━━━━━━━━━━━━━━━━━━━━ 8s 32ms/step - loss: 126.9418 - mae: 8.4506 - val_loss: 249.2453 - val_mae: 11.3979 - learning_rate: 6.2500e-05
+Epoch 22: early stopping
+Restoring model weights from the end of the best epoch: 14.
+Train Shape      : (20631, 27)
+Test Shape       : (13096, 26)
+Train Windows    : (17731, 30, 21)
+Test Windows     : (100, 30, 21)
+
+Model Performance
+     RMSE     MAE     R2
+0  15.834  10.969  0.844
+
+Processing FD002...
+
+Running 5-Fold Cross Validation...
+Epoch 19: early stopping
+Restoring model weights from the end of the best epoch: 11.
+WARNING:tensorflow:5 out of the last 116 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000251BA862A70> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+Fold 1: RMSE=18.521 MAE=14.256 R2=0.804
+Epoch 11: early stopping
+Restoring model weights from the end of the best epoch: 3.
+Fold 2: RMSE=17.384 MAE=13.514 R2=0.827
+Epoch 14: early stopping
+Restoring model weights from the end of the best epoch: 6.
+Fold 3: RMSE=17.735 MAE=13.632 R2=0.820
+Epoch 16: early stopping
+Restoring model weights from the end of the best epoch: 8.
+Fold 4: RMSE=19.226 MAE=15.270 R2=0.788
+Epoch 20: early stopping
+Restoring model weights from the end of the best epoch: 12.
+Fold 5: RMSE=18.695 MAE=15.085 R2=0.800
+
+Average Cross Validation Performance
+RMSE : 18.312
+MAE  : 14.351
+R2   : 0.808
+
+Training Final Model...
+Epoch 1/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 2937.8838 - mae: 40.5574 
+Epoch 1: val_loss improved from inf to 478.24728, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 26s 36ms/step - loss: 2933.1777 - mae: 40.5171 - val_loss: 478.2473 - val_mae: 15.7003 - learning_rate: 0.0010
+Epoch 2/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step - loss: 599.8282 - mae: 19.1755 
+Epoch 2: val_loss did not improve from 478.24728
+650/650 ━━━━━━━━━━━━━━━━━━━━ 23s 36ms/step - loss: 599.8026 - mae: 19.1750 - val_loss: 1079.0166 - val_mae: 26.7719 - learning_rate: 0.0010
+Epoch 3/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 518.5079 - mae: 17.6031 
+Epoch 3: val_loss did not improve from 478.24728
+650/650 ━━━━━━━━━━━━━━━━━━━━ 23s 35ms/step - loss: 518.5002 - mae: 17.6029 - val_loss: 811.2444 - val_mae: 20.4349 - learning_rate: 0.0010
+Epoch 4/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step - loss: 460.5373 - mae: 16.5756 
+Epoch 4: val_loss improved from 478.24728 to 347.27887, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 23s 36ms/step - loss: 460.4942 - mae: 16.5747 - val_loss: 347.2789 - val_mae: 13.0842 - learning_rate: 0.0010
+Epoch 5/75
+  1/650 ━━━━━━━━━━━━━━━━━━━━ 3:11:52 18s/step - loss: 354.1109 - mae: 14.52  3/650 ━━━━━━━━━━━━━━━━━━━━ 22s 34ms/step - loss: 412.1990 - mae: 15.5202 649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 34ms/step - loss: 412.1725 - mae: 15.6130 
+Epoch 5: val_loss improved from 347.27887 to 295.84808, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 41s 35ms/step - loss: 412.1570 - mae: 15.6126 - val_loss: 295.8481 - val_mae: 13.6366 - learning_rate: 0.0010
+Epoch 6/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 35ms/step - loss: 379.5116 - mae: 14.8494 
+Epoch 6: val_loss did not improve from 295.84808
+650/650 ━━━━━━━━━━━━━━━━━━━━ 24s 36ms/step - loss: 379.5198 - mae: 14.8497 - val_loss: 345.3227 - val_mae: 14.6402 - learning_rate: 0.0010
+Epoch 7/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 35ms/step - loss: 363.3001 - mae: 14.5493 
+Epoch 7: val_loss did not improve from 295.84808
+650/650 ━━━━━━━━━━━━━━━━━━━━ 24s 36ms/step - loss: 363.3002 - mae: 14.5493 - val_loss: 306.6251 - val_mae: 13.5752 - learning_rate: 0.0010
+Epoch 8/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 35ms/step - loss: 347.6969 - mae: 14.2257 
+Epoch 8: val_loss did not improve from 295.84808
+
+Epoch 8: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 24s 36ms/step - loss: 347.7000 - mae: 14.2258 - val_loss: 352.0020 - val_mae: 14.6445 - learning_rate: 0.0010
+Epoch 9/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 318.5885 - mae: 13.5559 
+Epoch 9: val_loss did not improve from 295.84808
+650/650 ━━━━━━━━━━━━━━━━━━━━ 23s 35ms/step - loss: 318.5791 - mae: 13.5556 - val_loss: 503.7942 - val_mae: 18.0557 - learning_rate: 5.0000e-04
+Epoch 10/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 32ms/step - loss: 307.7138 - mae: 13.2992 
+Epoch 10: val_loss did not improve from 295.84808
+650/650 ━━━━━━━━━━━━━━━━━━━━ 22s 34ms/step - loss: 307.7119 - mae: 13.2992 - val_loss: 349.6670 - val_mae: 13.9934 - learning_rate: 5.0000e-04
+Epoch 11/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 33ms/step - loss: 306.2904 - mae: 13.2440 
+Epoch 11: val_loss improved from 295.84808 to 275.90134, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 23s 35ms/step - loss: 306.2812 - mae: 13.2438 - val_loss: 275.9013 - val_mae: 12.5657 - learning_rate: 5.0000e-04
+Epoch 12/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 292.8346 - mae: 12.9666 
+Epoch 12: val_loss did not improve from 275.90134
+650/650 ━━━━━━━━━━━━━━━━━━━━ 18s 27ms/step - loss: 292.8316 - mae: 12.9666 - val_loss: 291.7576 - val_mae: 13.7165 - learning_rate: 5.0000e-04
+Epoch 13/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 285.7372 - mae: 12.8620 
+Epoch 13: val_loss did not improve from 275.90134
+650/650 ━━━━━━━━━━━━━━━━━━━━ 19s 29ms/step - loss: 285.7292 - mae: 12.8616 - val_loss: 462.5242 - val_mae: 17.1792 - learning_rate: 5.0000e-04
+Epoch 14/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 279.1172 - mae: 12.5903 
+Epoch 14: val_loss did not improve from 275.90134
+
+Epoch 14: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 18s 28ms/step - loss: 279.1176 - mae: 12.5904 - val_loss: 380.8497 - val_mae: 15.1793 - learning_rate: 5.0000e-04
+Epoch 15/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 255.5998 - mae: 12.0910 
+Epoch 15: val_loss did not improve from 275.90134
+650/650 ━━━━━━━━━━━━━━━━━━━━ 20s 27ms/step - loss: 255.5774 - mae: 12.0904 - val_loss: 361.9811 - val_mae: 15.1599 - learning_rate: 2.5000e-04
+Epoch 16/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 246.2016 - mae: 11.8569 
+Epoch 16: val_loss improved from 275.90134 to 265.58588, saving model to E:\PdM\models\FD002_lstm.keras
+650/650 ━━━━━━━━━━━━━━━━━━━━ 17s 27ms/step - loss: 246.2083 - mae: 11.8569 - val_loss: 265.5859 - val_mae: 12.5744 - learning_rate: 2.5000e-04
+Epoch 17/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 243.8218 - mae: 11.7588 
+Epoch 17: val_loss did not improve from 265.58588
+650/650 ━━━━━━━━━━━━━━━━━━━━ 18s 27ms/step - loss: 243.8119 - mae: 11.7585 - val_loss: 290.8099 - val_mae: 13.4978 - learning_rate: 2.5000e-04
+Epoch 18/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 237.3027 - mae: 11.6015 
+Epoch 18: val_loss did not improve from 265.58588
+650/650 ━━━━━━━━━━━━━━━━━━━━ 17s 27ms/step - loss: 237.2975 - mae: 11.6014 - val_loss: 311.9700 - val_mae: 13.9772 - learning_rate: 2.5000e-04
+Epoch 19/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 228.2673 - mae: 11.4076 
+Epoch 19: val_loss did not improve from 265.58588
+
+Epoch 19: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 18s 27ms/step - loss: 228.2671 - mae: 11.4076 - val_loss: 288.8502 - val_mae: 12.9650 - learning_rate: 2.5000e-04
+Epoch 20/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 213.6343 - mae: 11.0564 
+Epoch 20: val_loss did not improve from 265.58588
+650/650 ━━━━━━━━━━━━━━━━━━━━ 17s 27ms/step - loss: 213.6328 - mae: 11.0562 - val_loss: 321.8020 - val_mae: 14.0453 - learning_rate: 1.2500e-04
+Epoch 21/75
+648/650 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 210.6248 - mae: 10.9362 
+Epoch 21: val_loss did not improve from 265.58588
+650/650 ━━━━━━━━━━━━━━━━━━━━ 17s 27ms/step - loss: 210.6241 - mae: 10.9361 - val_loss: 342.7726 - val_mae: 14.6749 - learning_rate: 1.2500e-04
+Epoch 22/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 213.7026 - mae: 10.9868 
+Epoch 22: val_loss did not improve from 265.58588
+
+Epoch 22: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+650/650 ━━━━━━━━━━━━━━━━━━━━ 17s 27ms/step - loss: 213.6850 - mae: 10.9864 - val_loss: 323.8684 - val_mae: 14.1208 - learning_rate: 1.2500e-04
+Epoch 23/75
+649/650 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 200.3240 - mae: 10.6874 
+Epoch 23: val_loss did not improve from 265.58588
+650/650 ━━━━━━━━━━━━━━━━━━━━ 18s 27ms/step - loss: 200.3175 - mae: 10.6872 - val_loss: 297.9693 - val_mae: 13.5585 - learning_rate: 6.2500e-05
+Epoch 24/75
+650/650 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 198.9300 - mae: 10.6234 
+Epoch 24: val_loss did not improve from 265.58588
+650/650 ━━━━━━━━━━━━━━━━━━━━ 17s 27ms/step - loss: 198.9281 - mae: 10.6233 - val_loss: 277.2816 - val_mae: 12.8102 - learning_rate: 6.2500e-05
+Epoch 24: early stopping
+Restoring model weights from the end of the best epoch: 16.
+Train Shape      : (53759, 27)
+Test Shape       : (33991, 26)
+Train Windows    : (46219, 30, 21)
+Test Windows     : (259, 30, 21)
+
+Model Performance
+     RMSE     MAE    R2
+0  15.469  11.681  0.87
+
+Processing FD003...
+
+Running 5-Fold Cross Validation...
+Epoch 26: early stopping
+Restoring model weights from the end of the best epoch: 18.
+Fold 1: RMSE=12.882 MAE=9.467 R2=0.903
+Epoch 25: early stopping
+Restoring model weights from the end of the best epoch: 17.
+Fold 2: RMSE=11.496 MAE=7.374 R2=0.923
+Epoch 22: early stopping
+Restoring model weights from the end of the best epoch: 14.
+Fold 3: RMSE=10.949 MAE=7.614 R2=0.930
+Epoch 18: early stopping
+Restoring model weights from the end of the best epoch: 10.
+Fold 4: RMSE=13.590 MAE=10.330 R2=0.893
+Epoch 17: early stopping
+Restoring model weights from the end of the best epoch: 9.
+Fold 5: RMSE=13.695 MAE=9.418 R2=0.891
+
+Average Cross Validation Performance
+RMSE : 12.522
+MAE  : 8.841
+R2   : 0.908
+
+Training Final Model...
+Epoch 1/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 4538.2358 - mae: 52.4046  
+Epoch 1: val_loss improved from inf to 880.23975, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 11s 29ms/step - loss: 4513.1357 - mae: 52.1914 - val_loss: 880.2397 - val_mae: 26.2105 - learning_rate: 0.0010
+Epoch 2/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 401.4037 - mae: 15.5104 
+Epoch 2: val_loss improved from 880.23975 to 366.07318, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 401.1604 - mae: 15.5052 - val_loss: 366.0732 - val_mae: 15.1778 - learning_rate: 0.0010
+Epoch 3/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 295.9301 - mae: 13.2598 
+Epoch 3: val_loss improved from 366.07318 to 241.12581, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 295.8781 - mae: 13.2585 - val_loss: 241.1258 - val_mae: 11.4344 - learning_rate: 0.0010
+Epoch 4/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 251.4566 - mae: 12.1643 
+Epoch 4: val_loss did not improve from 241.12581
+307/307 ━━━━━━━━━━━━━━━━━━━━ 10s 27ms/step - loss: 251.4410 - mae: 12.1641 - val_loss: 252.5392 - val_mae: 11.8706 - learning_rate: 0.0010
+Epoch 5/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 233.0234 - mae: 11.6099 
+Epoch 5: val_loss did not improve from 241.12581
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 232.9352 - mae: 11.6079 - val_loss: 309.9714 - val_mae: 12.1907 - learning_rate: 0.0010
+Epoch 6/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 215.4824 - mae: 11.1704 
+Epoch 6: val_loss did not improve from 241.12581
+
+Epoch 6: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 215.4720 - mae: 11.1700 - val_loss: 266.1781 - val_mae: 12.4265 - learning_rate: 0.0010
+Epoch 7/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 188.6200 - mae: 10.4629 
+Epoch 7: val_loss improved from 241.12581 to 229.03065, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 188.5680 - mae: 10.4615 - val_loss: 229.0307 - val_mae: 10.2271 - learning_rate: 5.0000e-04
+Epoch 8/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 175.1025 - mae: 10.0230
+Epoch 8: val_loss improved from 229.03065 to 198.90392, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 175.0845 - mae: 10.0226 - val_loss: 198.9039 - val_mae: 9.7744 - learning_rate: 5.0000e-04
+Epoch 9/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 170.9876 - mae: 9.9189 
+Epoch 9: val_loss did not improve from 198.90392
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 170.9783 - mae: 9.9187 - val_loss: 314.6083 - val_mae: 12.5439 - learning_rate: 5.0000e-04
+Epoch 10/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 167.9388 - mae: 9.8609  
+Epoch 10: val_loss improved from 198.90392 to 119.29672, saving model to E:\PdM\models\FD003_lstm.keras
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 167.9355 - mae: 9.8606 - val_loss: 119.2967 - val_mae: 7.4253 - learning_rate: 5.0000e-04
+Epoch 11/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 161.0125 - mae: 9.6589  
+Epoch 11: val_loss did not improve from 119.29672
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 161.0233 - mae: 9.6591 - val_loss: 198.3249 - val_mae: 9.2353 - learning_rate: 5.0000e-04
+Epoch 12/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 159.2346 - mae: 9.5889 
+Epoch 12: val_loss did not improve from 119.29672
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 159.2197 - mae: 9.5884 - val_loss: 249.2511 - val_mae: 11.7076 - learning_rate: 5.0000e-04
+Epoch 13/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 147.4780 - mae: 9.1496 
+Epoch 13: val_loss did not improve from 119.29672
+
+Epoch 13: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 147.4677 - mae: 9.1496 - val_loss: 221.3506 - val_mae: 9.3623 - learning_rate: 5.0000e-04
+Epoch 14/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 137.9659 - mae: 8.9085 
+Epoch 14: val_loss did not improve from 119.29672
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 137.9586 - mae: 8.9083 - val_loss: 155.3519 - val_mae: 8.1102 - learning_rate: 2.5000e-04
+Epoch 15/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 128.7554 - mae: 8.5828 
+Epoch 15: val_loss did not improve from 119.29672
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 128.7370 - mae: 8.5822 - val_loss: 169.8614 - val_mae: 8.6262 - learning_rate: 2.5000e-04
+Epoch 16/75
+307/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 123.7469 - mae: 8.4068 
+Epoch 16: val_loss did not improve from 119.29672
+
+Epoch 16: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 123.7373 - mae: 8.4065 - val_loss: 190.9606 - val_mae: 9.9547 - learning_rate: 2.5000e-04
+Epoch 17/75
+305/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 116.9337 - mae: 8.2161 
+Epoch 17: val_loss did not improve from 119.29672
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 26ms/step - loss: 116.9343 - mae: 8.2159 - val_loss: 135.8437 - val_mae: 8.1656 - learning_rate: 1.2500e-04
+Epoch 18/75
+306/307 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 116.9160 - mae: 8.1864
+Epoch 18: val_loss did not improve from 119.29672
+307/307 ━━━━━━━━━━━━━━━━━━━━ 8s 27ms/step - loss: 116.9191 - mae: 8.1868 - val_loss: 163.4421 - val_mae: 8.7346 - learning_rate: 1.2500e-04
+Epoch 18: early stopping
+Restoring model weights from the end of the best epoch: 10.
+Train Shape      : (24720, 27)
+Test Shape       : (16596, 26)
+Train Windows    : (21820, 30, 21)
+Test Windows     : (100, 30, 21)
+
+Model Performance
+     RMSE     MAE     R2
+0  13.375  10.132  0.883
+
+Processing FD004...
+
+Running 5-Fold Cross Validation...
+Epoch 16: early stopping
+Restoring model weights from the end of the best epoch: 8.
+WARNING:tensorflow:5 out of the last 142 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000251CF6CA8C0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+Fold 1: RMSE=20.579 MAE=15.100 R2=0.754
+Epoch 16: early stopping
+Restoring model weights from the end of the best epoch: 8.
+Fold 2: RMSE=18.454 MAE=13.669 R2=0.802
+Epoch 14: early stopping
+Restoring model weights from the end of the best epoch: 6.
+Fold 3: RMSE=18.736 MAE=14.492 R2=0.796
+Epoch 13: early stopping
+Restoring model weights from the end of the best epoch: 5.
+Fold 4: RMSE=19.737 MAE=13.974 R2=0.774
+Epoch 13: early stopping
+Restoring model weights from the end of the best epoch: 5.
+Fold 5: RMSE=19.975 MAE=13.525 R2=0.768
+
+Average Cross Validation Performance
+RMSE : 19.496
+MAE  : 14.152
+R2   : 0.779
+
+Training Final Model...
+Epoch 1/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - loss: 2907.9160 - mae: 40.6932  
+Epoch 1: val_loss improved from inf to 580.76215, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 24s 29ms/step - loss: 2903.8352 - mae: 40.6572 - val_loss: 580.7621 - val_mae: 17.1104 - learning_rate: 0.0010
+Epoch 2/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 567.1510 - mae: 18.3810 
+Epoch 2: val_loss improved from 580.76215 to 390.91519, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 29ms/step - loss: 567.0853 - mae: 18.3798 - val_loss: 390.9152 - val_mae: 14.4490 - learning_rate: 0.0010
+Epoch 3/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 494.5168 - mae: 16.9267 
+Epoch 3: val_loss improved from 390.91519 to 302.15414, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 29ms/step - loss: 494.4810 - mae: 16.9261 - val_loss: 302.1541 - val_mae: 12.7062 - learning_rate: 0.0010
+Epoch 4/75
+760/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 459.0014 - mae: 16.2333 
+Epoch 4: val_loss did not improve from 302.15414
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 458.9927 - mae: 16.2331 - val_loss: 354.7888 - val_mae: 14.3543 - learning_rate: 0.0010
+Epoch 5/75
+760/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 419.9256 - mae: 15.4343 
+Epoch 5: val_loss did not improve from 302.15414
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 419.9298 - mae: 15.4343 - val_loss: 329.8543 - val_mae: 13.7784 - learning_rate: 0.0010
+Epoch 6/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 426.4092 - mae: 15.5203 
+Epoch 6: val_loss did not improve from 302.15414
+
+Epoch 6: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+760/760 ━━━━━━━━━━━━━━━━━━━━ 21s 28ms/step - loss: 426.3345 - mae: 15.5188 - val_loss: 371.7342 - val_mae: 13.6648 - learning_rate: 0.0010
+Epoch 7/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 350.5573 - mae: 14.0072 
+Epoch 7: val_loss improved from 302.15414 to 274.61664, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 350.5554 - mae: 14.0070 - val_loss: 274.6166 - val_mae: 13.3331 - learning_rate: 5.0000e-04
+Epoch 8/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 323.0237 - mae: 13.3038 
+Epoch 8: val_loss did not improve from 274.61664
+760/760 ━━━━━━━━━━━━━━━━━━━━ 21s 28ms/step - loss: 323.0338 - mae: 13.3041 - val_loss: 360.2594 - val_mae: 12.3183 - learning_rate: 5.0000e-04
+Epoch 9/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 314.4282 - mae: 13.1600 
+Epoch 9: val_loss did not improve from 274.61664
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 314.4190 - mae: 13.1597 - val_loss: 312.5616 - val_mae: 13.9720 - learning_rate: 5.0000e-04
+Epoch 10/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 296.6222 - mae: 12.7272 
+Epoch 10: val_loss improved from 274.61664 to 256.05475, saving model to E:\PdM\models\FD004_lstm.keras
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 296.6075 - mae: 12.7269 - val_loss: 256.0547 - val_mae: 11.6670 - learning_rate: 5.0000e-04
+Epoch 11/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 273.0899 - mae: 12.2154 
+Epoch 11: val_loss did not improve from 256.05475
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 273.0686 - mae: 12.2149 - val_loss: 350.4947 - val_mae: 11.9357 - learning_rate: 5.0000e-04
+Epoch 12/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 247.7833 - mae: 11.5907 
+Epoch 12: val_loss did not improve from 256.05475
+760/760 ━━━━━━━━━━━━━━━━━━━━ 21s 28ms/step - loss: 247.7672 - mae: 11.5904 - val_loss: 369.6453 - val_mae: 15.0358 - learning_rate: 5.0000e-04
+Epoch 13/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 216.8406 - mae: 10.9100 
+Epoch 13: val_loss did not improve from 256.05475
+
+Epoch 13: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+760/760 ━━━━━━━━━━━━━━━━━━━━ 21s 28ms/step - loss: 216.8371 - mae: 10.9098 - val_loss: 309.9035 - val_mae: 13.2890 - learning_rate: 5.0000e-04
+Epoch 14/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 183.3765 - mae: 10.0256 
+Epoch 14: val_loss did not improve from 256.05475
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 183.3596 - mae: 10.0249 - val_loss: 320.7926 - val_mae: 12.7816 - learning_rate: 2.5000e-04
+Epoch 15/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 165.6676 - mae: 9.4958  
+Epoch 15: val_loss did not improve from 256.05475
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 28ms/step - loss: 165.6674 - mae: 9.4958 - val_loss: 294.6725 - val_mae: 12.7533 - learning_rate: 2.5000e-04
+Epoch 16/75
+759/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 154.8968 - mae: 9.1999 
+Epoch 16: val_loss did not improve from 256.05475
+
+Epoch 16: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 29ms/step - loss: 154.8906 - mae: 9.1997 - val_loss: 315.9657 - val_mae: 12.4354 - learning_rate: 2.5000e-04
+Epoch 17/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 136.7547 - mae: 8.6272   
+Epoch 17: val_loss did not improve from 256.05475
+760/760 ━━━━━━━━━━━━━━━━━━━━ 41s 28ms/step - loss: 136.7411 - mae: 8.6269 - val_loss: 285.9416 - val_mae: 12.2201 - learning_rate: 1.2500e-04
+Epoch 18/75
+758/760 ━━━━━━━━━━━━━━━━━━━━ 0s 27ms/step - loss: 130.4283 - mae: 8.4559  
+Epoch 18: val_loss did not improve from 256.05475
+760/760 ━━━━━━━━━━━━━━━━━━━━ 22s 29ms/step - loss: 130.4283 - mae: 8.4557 - val_loss: 283.4825 - val_mae: 12.4070 - learning_rate: 1.2500e-04
+Epoch 18: early stopping
+Restoring model weights from the end of the best epoch: 10.
+Train Shape      : (61249, 27)
+Test Shape       : (41214, 26)
+Train Windows    : (54028, 30, 21)
+Test Windows     : (248, 30, 21)
+
+Model Performance
+     RMSE     MAE     R2
+0  19.731  14.496  0.789
+
+Pipeline completed successfully.
+PS E:\PdM> 
