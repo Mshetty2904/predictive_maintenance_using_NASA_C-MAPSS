@@ -1,27 +1,46 @@
 from pathlib import Path
 
-import joblib
 import numpy as np
 
-from sklearn.model_selection import KFold
+from sklearn.model_selection import GroupKFold
 from sklearn.metrics import (
     mean_squared_error,
     mean_absolute_error,
     r2_score,
 )
 
+from tensorflow.keras.callbacks import (
+    EarlyStopping,
+    ModelCheckpoint,
+    ReduceLROnPlateau,
+)
+from src.scaler import FeatureScaler
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import (
+    Input,
     LSTM,
     Dense,
     Dropout,
+    BatchNormalization,
 )
-from tensorflow.keras.callbacks import EarlyStopping
+from config import (
+    LSTM_UNITS_1,
+    LSTM_UNITS_2,
+    DENSE_1,        
+    DENSE_2,
+    DROPOUT,
+    LEARNING_RATE,
+    BATCH_SIZE,
+    EPOCHS,
+    PATIENCE,
+    VALIDATION_SPLIT,
+    LR_FACTOR,
+    LR_PATIENCE,
+    MIN_LR,
+    MONITOR,
+)
 from tensorflow.keras.optimizers import Adam
-
-from src.scaler import FeatureScaler
-
-
 class LSTMTrainer:
 
     def __init__(
@@ -38,29 +57,57 @@ class LSTMTrainer:
             exist_ok=True,
         )
 
-    def build_model(
-        self,
-        input_shape,
-    ):
+    def build_model(self, input_shape):
 
         model = Sequential()
 
         model.add(
+            Input(shape=input_shape)
+        )
+
+        model.add(
             LSTM(
-                64,
-                input_shape=input_shape,
+                LSTM_UNITS_1,
+                return_sequences=True,
             )
         )
 
         model.add(
+            BatchNormalization()
+        )
+
+        model.add(
             Dropout(
-                0.2,
+                DROPOUT,
+            )
+        )
+
+        model.add(
+            LSTM(
+                LSTM_UNITS_2,
+            )
+        )
+
+        model.add(
+            BatchNormalization()
+        )
+
+        model.add(
+            Dropout(
+                DROPOUT,
             )
         )
 
         model.add(
             Dense(
-                32,
+                DENSE_1,
+                activation="relu",
+            )
+        )
+
+        model.add(
+            Dense(
+                DENSE_2,
                 activation="relu",
             )
         )
@@ -72,7 +119,9 @@ class LSTMTrainer:
         )
 
         model.compile(
-            optimizer=Adam(),
+            optimizer=Adam(
+                learning_rate=LEARNING_RATE,
+            ),
             loss="mse",
             metrics=["mae"],
         )
@@ -96,11 +145,6 @@ class LSTMTrainer:
 
         print("\nRunning 5-Fold Cross Validation...")
 
-        kfold = KFold(
-            n_splits=5,
-            shuffle=True,
-            random_state=42,
-        )
 
         rmse_scores = []
         mae_scores = []
@@ -108,7 +152,13 @@ class LSTMTrainer:
 
         fold = 1
 
-        for train_idx, valid_idx in kfold.split(X_train):
+        gkf = GroupKFold(n_splits=5)
+
+        for train_idx, valid_idx in gkf.split(
+            X_train,
+            y_train,
+            groups=bundle.train_groups,
+        ):
 
             model = self.build_model(
                 (
@@ -119,8 +169,9 @@ class LSTMTrainer:
 
             early_stop = EarlyStopping(
                 monitor="val_loss",
-                patience=5,
+                patience=PATIENCE,
                 restore_best_weights=True,
+                verbose=1,
             )
 
             model.fit(
@@ -130,8 +181,8 @@ class LSTMTrainer:
                     X_train[valid_idx],
                     y_train[valid_idx],
                 ),
-                epochs=50,
-                batch_size=64,
+                epochs=EPOCHS,
+                batch_size=BATCH_SIZE,
                 verbose=0,
                 callbacks=[early_stop],
             )
@@ -194,12 +245,56 @@ class LSTMTrainer:
             )
         )
 
-        final_model.fit(
+        model_file = (
+            self.model_path
+            / f"{bundle.dataset_name}_lstm.keras"
+        )
+
+        early_stop = EarlyStopping(
+            monitor=MONITOR,
+            patience=PATIENCE,
+            restore_best_weights=True,
+            verbose=1,
+        )
+
+        checkpoint = ModelCheckpoint(
+            filepath=model_file,
+            monitor=MONITOR,
+            save_best_only=True,
+            verbose=1,
+        )
+
+        reduce_lr = ReduceLROnPlateau(
+            monitor=MONITOR,
+            factor=LR_FACTOR,
+            patience=LR_PATIENCE,
+            min_lr=MIN_LR,
+            verbose=1,
+        )
+
+        history = final_model.fit(
+
             X_train,
+
             y_train,
-            epochs=50,
-            batch_size=64,
-            verbose=0,
+
+            validation_split=VALIDATION_SPLIT,
+
+            epochs=EPOCHS,
+
+            batch_size=BATCH_SIZE,
+
+            callbacks=[
+                early_stop,
+                checkpoint,
+                reduce_lr,
+            ],
+
+            verbose=1,
+        )
+
+        final_model.load_weights(
+            model_file,
         )
 
         predictions = final_model.predict(
@@ -207,13 +302,10 @@ class LSTMTrainer:
             verbose=0,
         ).flatten()
 
-        model_file = (
-            self.model_path
-            / f"{bundle.dataset_name}_lstm.keras"
-        )
-
         final_model.save(
             model_file,
         )
-
+        self.history = history.history
         return final_model, predictions
+
+       

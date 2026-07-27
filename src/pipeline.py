@@ -7,8 +7,9 @@ from src.window_generator import (
     create_train_windows,
     create_test_windows,
 )
-
 from src.dataset_bundle import DatasetBundle
+
+
 class TrainingPipeline:
     """
     Runs the complete data preparation pipeline
@@ -48,18 +49,21 @@ class TrainingPipeline:
             self.processed_path,
         )
 
-        X_train, y_train = create_train_windows(
+        # Create training windows
+        X_train, y_train, train_groups = create_train_windows(
             train,
             self.window_size,
             self.step_size,
         )
 
+        # Create test windows
         X_test, y_test = create_test_windows(
             test,
             rul,
             self.window_size,
         )
 
+        # Return dataset bundle
         return DatasetBundle(
             dataset_name=self.dataset_name,
 
@@ -72,4 +76,6 @@ class TrainingPipeline:
 
             X_test=X_test,
             y_test=y_test,
+
+            train_groups=train_groups,
         )

@@ -1,10 +1,10 @@
 from pathlib import Path
-
+from config import MAX_RUL
 
 def calculate_rul(train_df):
     """
     Calculate Remaining Useful Life (RUL)
-    for every engine.
+    using piecewise linear RUL.
     """
 
     train = train_df.copy()
@@ -16,6 +16,11 @@ def calculate_rul(train_df):
     )
 
     train["RUL"] = max_cycle - train["Cycle"]
+
+    # Piecewise RUL Capping
+    train["RUL"] = train["RUL"].clip(
+        upper=MAX_RUL
+    )
 
     return train
 

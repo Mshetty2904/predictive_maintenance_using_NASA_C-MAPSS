@@ -1,7 +1,10 @@
 import numpy as np
 
-
-def create_train_windows(data, window_size=30, step_size=1):
+def create_train_windows(
+    data,
+    window_size=30,
+    step_size=1,
+):
 
     sensor_columns = [
         col for col in data.columns
@@ -10,8 +13,9 @@ def create_train_windows(data, window_size=30, step_size=1):
 
     X = []
     y = []
+    groups = []
 
-    for _, engine in data.groupby("Engine_ID"):
+    for engine_id, engine in data.groupby("Engine_ID"):
 
         engine = engine.reset_index(drop=True)
 
@@ -37,11 +41,14 @@ def create_train_windows(data, window_size=30, step_size=1):
                 ]
             )
 
-    return np.array(X), np.array(y)
+            # Store engine id for GroupKFold
+            groups.append(engine_id)
 
-
-import numpy as np
-
+    return (
+        np.array(X),
+        np.array(y),
+        np.array(groups),
+    )
 
 def create_test_windows(test, rul, window_size=30):
 
