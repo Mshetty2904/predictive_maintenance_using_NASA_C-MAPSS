@@ -7,7 +7,9 @@ from sklearn.metrics import (
     r2_score,
 )
 from sklearn.model_selection import GroupKFold
+from tensorflow.keras import backend as K
 from tensorflow.keras.callbacks import (
+    Callback,
     EarlyStopping,
     ModelCheckpoint,
     ReduceLROnPlateau,
@@ -45,6 +47,40 @@ from src.model_utils import print_cv_fold, print_cv_summary
 from src.scaler import FeatureScaler
 
 
+class EpochLogger(Callback):
+
+    def on_epoch_end(self, epoch, logs=None):
+
+        logs = logs or {}
+
+        values = []
+
+        for name in [
+            "loss",
+            "mae",
+            "val_loss",
+            "val_mae",
+        ]:
+
+            if name in logs:
+                values.append(
+                    f"{name}={logs[name]:.5f}"
+                )
+
+        learning_rate = K.get_value(
+            self.model.optimizer.learning_rate
+        )
+
+        values.append(
+            f"lr={learning_rate:.7f}"
+        )
+
+        print(
+            f"Epoch {epoch + 1:03d} | "
+            + " | ".join(values)
+        )
+
+
 class CNNLSTMTrainer:
 
     def __init__(self, model_path, scaler_path):
@@ -52,39 +88,63 @@ class CNNLSTMTrainer:
         self.model_path = Path(model_path)
         self.scaler_path = scaler_path
 
-        self.model_path.mkdir(parents=True, exist_ok=True)
+        self.model_path.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
 
     def build_model(self, input_shape):
 
         model = Sequential(
             [
                 Input(shape=input_shape),
+
                 Conv1D(
                     filters=CNN_FILTERS,
                     kernel_size=5,
                     activation="relu",
                     padding="same",
                 ),
+
                 BatchNormalization(),
+
                 Conv1D(
                     filters=CNN_FILTERS,
                     kernel_size=3,
                     activation="relu",
                     padding="same",
                 ),
+
                 BatchNormalization(),
-                MaxPooling1D(pool_size=POOL_SIZE),
+
+                MaxPooling1D(
+                    pool_size=POOL_SIZE,
+                ),
+
                 Dropout(DROPOUT),
+
                 LSTM(LSTM_UNITS_2),
+
                 Dropout(DROPOUT),
-                Dense(DENSE_1, activation="relu"),
-                Dense(DENSE_2, activation="relu"),
+
+                Dense(
+                    DENSE_1,
+                    activation="relu",
+                ),
+
+                Dense(
+                    DENSE_2,
+                    activation="relu",
+                ),
+
                 Dense(1),
             ]
         )
 
         model.compile(
-            optimizer=Adam(learning_rate=LEARNING_RATE),
+            optimizer=Adam(
+                learning_rate=LEARNING_RATE,
+            ),
             loss="mse",
             metrics=["mae"],
         )
@@ -93,14 +153,21 @@ class CNNLSTMTrainer:
 
     def train(self, bundle):
 
-        scaler = FeatureScaler(self.scaler_path)
+        scaler = FeatureScaler(
+            self.scaler_path,
+        )
 
         X_train_raw = bundle.X_train
         y_train = bundle.y_train
 
-        print("\nRunning 5-Fold Engine-wise Cross Validation...")
+        print(
+            "\nRunning 5-Fold Engine-wise "
+            "Cross Validation..."
+        )
 
-        group_kfold = GroupKFold(n_splits=5)
+        group_kfold = GroupKFold(
+            n_splits=5,
+        )
 
         rmse_scores = []
         mae_scores = []
@@ -175,7 +242,12 @@ class CNNLSTMTrainer:
             mae_scores.append(mae)
             r2_scores.append(r2)
 
-            print_cv_fold(fold, rmse, mae, r2)
+            print_cv_fold(
+                fold,
+                rmse,
+                mae,
+                r2,
+            )
 
         print_cv_summary(
             rmse_scores,
@@ -183,9 +255,12 @@ class CNNLSTMTrainer:
             r2_scores,
         )
 
-        X_train, X_test = scaler.scale_final_data(bundle)
+        X_train, X_test = scaler.scale_final_data(
+            bundle,
+        )
 
-        print("\nTraining Final Model...")
+        print("\nTraining Final CNN-LSTM Model...")
+        print("Epoch details are shown below.")
 
         final_model = self.build_model(
             (
@@ -199,27 +274,29 @@ class CNNLSTMTrainer:
             / f"{bundle.dataset_name}_cnn_lstm.keras"
         )
 
-        callbacks = [
-            EarlyStopping(
-                monitor=MONITOR,
-                patience=PATIENCE,
-                restore_best_weights=True,
-                verbose=0,
-            ),
-            ModelCheckpoint(
-                filepath=model_file,
-                monitor=MONITOR,
-                save_best_only=True,
-                verbose=0,
-            ),
-            ReduceLROnPlateau(
-                monitor=MONITOR,
-                factor=LR_FACTOR,
-                patience=LR_PATIENCE,
-                min_lr=MIN_LR,
-                verbose=0,
-            ),
-        ]
+        early_stop = EarlyStopping(
+            monitor=MONITOR,
+            patience=PATIENCE,
+            restore_best_weights=True,
+            verbose=1,
+        )
+
+        checkpoint = ModelCheckpoint(
+            filepath=model_file,
+            monitor=MONITOR,
+            save_best_only=True,
+            verbose=1,
+        )
+
+        reduce_lr = ReduceLROnPlateau(
+            monitor=MONITOR,
+            factor=LR_FACTOR,
+            patience=LR_PATIENCE,
+            min_lr=MIN_LR,
+            verbose=1,
+        )
+
+        epoch_logger = EpochLogger()
 
         history = final_model.fit(
             X_train,
@@ -227,11 +304,50 @@ class CNNLSTMTrainer:
             validation_split=VALIDATION_SPLIT,
             epochs=CNN_LSTM_EPOCHS,
             batch_size=CNN_LSTM_BATCH_SIZE,
-            callbacks=callbacks,
+            callbacks=[
+                checkpoint,
+                reduce_lr,
+                epoch_logger,
+                early_stop,
+            ],
             verbose=0,
         )
 
-        final_model.load_weights(model_file)
+        best_epoch = (
+            int(
+                np.argmin(
+                    history.history["val_loss"]
+                )
+            )
+            + 1
+        )
+
+        best_val_loss = min(
+            history.history["val_loss"]
+        )
+
+        print(
+            f"\nBest Epoch: {best_epoch}"
+        )
+
+        print(
+            f"Best Validation Loss: "
+            f"{best_val_loss:.5f}"
+        )
+
+        if early_stop.stopped_epoch > 0:
+            print(
+                f"Early stopping activated at epoch "
+                f"{early_stop.stopped_epoch + 1}."
+            )
+        else:
+            print(
+                "Early stopping was not activated."
+            )
+
+        final_model.load_weights(
+            model_file,
+        )
 
         predictions = final_model.predict(
             X_test,

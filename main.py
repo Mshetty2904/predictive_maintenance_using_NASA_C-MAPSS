@@ -4,10 +4,12 @@ from config import (
     OUTPUT_PATH,
     PROCESSED_DATA_PATH,
     RAW_DATA_PATH,
+    SCALER_PATH,
     STEP_SIZE,
     WINDOW_SIZE,
 )
 
+from src.cnn_lstm_trainer import CNNLSTMTrainer
 from src.model_utils import (
     evaluate_model,
     print_dataset_info,
@@ -15,10 +17,9 @@ from src.model_utils import (
     save_metrics,
 )
 from src.pipeline import TrainingPipeline
-from src.xgboost_trainer import XGBoostTrainer
 
 
-MODEL_NAME = "xgboost"
+MODEL_NAME = "cnn_lstm"
 
 
 def main():
@@ -40,7 +41,10 @@ def main():
 
         print_dataset_info(bundle, MODEL_NAME)
 
-        trainer = XGBoostTrainer(MODEL_PATH)
+        trainer = CNNLSTMTrainer(
+            model_path=MODEL_PATH,
+            scaler_path=SCALER_PATH,
+        )
 
         _, predictions = trainer.train(bundle)
 
