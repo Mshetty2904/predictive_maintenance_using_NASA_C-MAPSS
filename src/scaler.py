@@ -1,60 +1,48 @@
 from pathlib import Path
 
 import joblib
-import numpy as np
-
 from sklearn.preprocessing import StandardScaler
 
 
 class FeatureScaler:
-    """
-    Standardize features for deep learning models.
-    """
 
     def __init__(self, scaler_path):
 
         self.scaler_path = Path(scaler_path)
+        self.scaler_path.mkdir(parents=True, exist_ok=True)
 
-        self.scaler_path.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
+    def fit_transform_pair(self, train_data, other_data):
 
-    def scale(self, bundle):
+        train_samples, time_steps, features = train_data.shape
+        other_samples = other_data.shape[0]
 
-        n_train, time_steps, n_features = bundle.X_train.shape
-        n_test = bundle.X_test.shape[0]
-
-        X_train = bundle.X_train.reshape(
-            -1,
-            n_features,
-        )
-
-        X_test = bundle.X_test.reshape(
-            -1,
-            n_features,
-        )
+        train_2d = train_data.reshape(-1, features)
+        other_2d = other_data.reshape(-1, features)
 
         scaler = StandardScaler()
 
-        X_train = scaler.fit_transform(
-            X_train,
-        )
+        train_scaled = scaler.fit_transform(train_2d)
+        other_scaled = scaler.transform(other_2d)
 
-        X_test = scaler.transform(
-            X_test,
-        )
-
-        X_train = X_train.reshape(
-            n_train,
+        train_scaled = train_scaled.reshape(
+            train_samples,
             time_steps,
-            n_features,
+            features,
         )
 
-        X_test = X_test.reshape(
-            n_test,
+        other_scaled = other_scaled.reshape(
+            other_samples,
             time_steps,
-            n_features,
+            features,
+        )
+
+        return train_scaled, other_scaled, scaler
+
+    def scale_final_data(self, bundle):
+
+        X_train, X_test, scaler = self.fit_transform_pair(
+            bundle.X_train,
+            bundle.X_test,
         )
 
         scaler_file = (
@@ -62,8 +50,6 @@ class FeatureScaler:
             / f"{bundle.dataset_name}_scaler.pkl"
         )
 
-        joblib.dump(
-            scaler,
-            scaler_file,
-        )
+        joblib.dump(scaler, scaler_file)
+
         return X_train, X_test
