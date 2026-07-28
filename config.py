@@ -42,7 +42,7 @@ TEST_SIZE = 0.20
 # ==========================================================
 
 XGB_PARAMS = {
-    "n_estimators": 1000,
+    "n_estimators": 2000,
     "learning_rate": 0.05,
     "max_depth": 6,
     "subsample": 0.8,
