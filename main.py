@@ -1,31 +1,32 @@
 from config import (
     DATASETS,
-    RAW_DATA_PATH,
-    PROCESSED_DATA_PATH,
-    WINDOW_SIZE,
-    STEP_SIZE,
-    OUTPUT_PATH,
     MODEL_PATH,
+    OUTPUT_PATH,
+    PROCESSED_DATA_PATH,
+    RAW_DATA_PATH,
+    STEP_SIZE,
+    WINDOW_SIZE,
 )
 
-from src.pipeline import TrainingPipeline
-from src.trainer import XGBoostTrainer
 from src.model_utils import (
     evaluate_model,
+    print_dataset_info,
+    print_final_metrics,
     save_metrics,
 )
-from src.lstm_trainer import LSTMTrainer
-from config import SCALER_PATH
+from src.pipeline import TrainingPipeline
+from src.xgboost_trainer import XGBoostTrainer
+
+
+MODEL_NAME = "xgboost"
+
 
 def main():
 
-    print("=" * 60)
-    print("NASA C-MAPSS DATA PROCESSING")
-    print("=" * 60)
+    print("\nNASA C-MAPSS Predictive Maintenance")
+    print(f"Model: {MODEL_NAME}")
 
     for dataset in DATASETS:
-
-        print(f"\nProcessing {dataset}...")
 
         pipeline = TrainingPipeline(
             dataset_name=dataset,
@@ -37,14 +38,11 @@ def main():
 
         bundle = pipeline.run()
 
-        trainer = LSTMTrainer(
-            MODEL_PATH,
-            SCALER_PATH,
-        )
+        print_dataset_info(bundle, MODEL_NAME)
 
-        model, predictions = trainer.train(
-            bundle,
-        )
+        trainer = XGBoostTrainer(MODEL_PATH)
+
+        _, predictions = trainer.train(bundle)
 
         metrics = evaluate_model(
             bundle.y_test,
@@ -55,17 +53,12 @@ def main():
             metrics,
             OUTPUT_PATH,
             bundle.dataset_name,
+            MODEL_NAME,
         )
 
-        print(f"Train Shape      : {bundle.train.shape}")
-        print(f"Test Shape       : {bundle.test.shape}")
-        print(f"Train Windows    : {bundle.X_train.shape}")
-        print(f"Test Windows     : {bundle.X_test.shape}")
+        print_final_metrics(metrics)
 
-        print("\nModel Performance")
-        print(metrics)
-
-    print("\nPipeline completed successfully.")
+    print("\nAll datasets completed successfully.")
 
 
 if __name__ == "__main__":

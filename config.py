@@ -42,20 +42,16 @@ TEST_SIZE = 0.20
 # ==========================================================
 
 XGB_PARAMS = {
-
-    "n_estimators": 500,
-
+    "n_estimators": 1000,
     "learning_rate": 0.05,
-
     "max_depth": 6,
-
     "subsample": 0.8,
-
     "colsample_bytree": 0.8,
-
-    "random_state": RANDOM_STATE
-
+    "random_state": RANDOM_STATE,
+    "objective": "reg:squarederror",
 }
+
+XGB_EARLY_STOPPING_ROUNDS = 40
 
 # ==========================================================
 # LSTM
@@ -67,24 +63,26 @@ LSTM_UNITS_2 = 64
 DENSE_1 = 64
 DENSE_2 = 32
 
-DROPOUT = 0.30
+DROPOUT = 0.20
 
-LEARNING_RATE = 0.001
+LEARNING_RATE = 5e-4
 
 BATCH_SIZE = 64
 
 EPOCHS = 75
 
-PATIENCE = 8
+PATIENCE = 12
 
 # ==========================================================
 # CNN-LSTM
 # ==========================================================
 
-CNN_LSTM_EPOCHS = 50
+CNN_FILTERS = 64
+CNN_KERNEL_SIZE = 5
+POOL_SIZE = 2
 
 CNN_LSTM_BATCH_SIZE = 64
-
+CNN_LSTM_EPOCHS = 75
 # ==========================================================
 # DRIFT
 # ==========================================================
