@@ -8,6 +8,7 @@ from sklearn.metrics import (
     r2_score,
 )
 from sklearn.model_selection import GroupKFold
+from src.nasa_score import nasa_score
 from xgboost import XGBRegressor
 from xgboost.callback import EarlyStopping
 
@@ -56,6 +57,7 @@ class XGBoostTrainer:
         mae_scores = []
         r2_scores = []
         best_rounds = []
+        nasa_scores = []
 
         for fold, (train_idx, valid_idx) in enumerate(
             group_kfold.split(
@@ -113,12 +115,17 @@ class XGBoostTrainer:
                 y_train[valid_idx],
                 predictions,
             )
+            score = nasa_score(
+                y_train[valid_idx],
+                predictions,
+            )
 
             best_round = model.best_iteration + 1
 
             rmse_scores.append(rmse)
             mae_scores.append(mae)
             r2_scores.append(r2)
+            nasa_scores.append(score)
             best_rounds.append(best_round)
 
             print_cv_fold(
@@ -132,6 +139,7 @@ class XGBoostTrainer:
             rmse_scores,
             mae_scores,
             r2_scores,
+            nasa_scores,
         )
 
         final_rounds = int(np.median(best_rounds))

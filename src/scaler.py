@@ -14,7 +14,7 @@ class FeatureScaler:
     def fit_transform_pair(self, train_data, other_data):
 
         train_samples, time_steps, features = train_data.shape
-        other_samples = other_data.shape[0]
+        other_samples, _, _ = other_data.shape
 
         train_2d = train_data.reshape(-1, features)
         other_2d = other_data.reshape(-1, features)
@@ -52,4 +52,4 @@ class FeatureScaler:
 
         joblib.dump(scaler, scaler_file)
 
-        return X_train, X_test
+        return X_train, X_test, scaler

@@ -1,0 +1,4 @@
+Dataset : FD002
+Total Constant Sensors : 0
+
+No constant sensors found.

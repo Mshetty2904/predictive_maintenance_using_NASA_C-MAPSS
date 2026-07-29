@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from config import MAX_RUL
+
 class DataLoader:
     def __init__(self, dataset_name, raw_data_path):
         self.dataset_name = dataset_name
@@ -37,11 +37,7 @@ class DataLoader:
             names=["RUL"],
         )
 
-        # Piecewise RUL Capping
-        rul["RUL"] = rul["RUL"].clip(
-            upper=MAX_RUL
-        )
-
+        # Do NOT cap the NASA test RUL values.
         return train, test, rul
 
     @staticmethod

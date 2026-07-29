@@ -63,25 +63,31 @@ LSTM_UNITS_2 = 64
 DENSE_1 = 64
 DENSE_2 = 32
 
-DROPOUT = 0.20
+LSTM_DROPOUT = 0.20
 
-LEARNING_RATE = 5e-4
+LSTM_LEARNING_RATE = 5e-4
 
 BATCH_SIZE = 64
 
 EPOCHS = 75
 
-PATIENCE = 12
+LSTM_PATIENCE = 12
 
 # ==========================================================
 # CNN-LSTM
 # ==========================================================
 
 CNN_FILTERS = 64
+#64
 CNN_KERNEL_SIZE = 5
 POOL_SIZE = 2
-
+CNN_LSTM_DROPOUT = 0.20
+CNN_LSTM_LEARNING_RATE = 2e-4
+CNN_LSTM_PATIENCE = 10
+#18
 CNN_LSTM_BATCH_SIZE = 64
+CNN_LSTM_LR_PATIENCE = 4
+#5
 CNN_LSTM_EPOCHS = 75
 # ==========================================================
 # DRIFT
@@ -107,7 +113,6 @@ SCALER_PATH = PROJECT_ROOT / "scalers"
 VALIDATION_SPLIT = 0.10
 
 LR_FACTOR = 0.5
-LR_PATIENCE = 3
 MIN_LR = 1e-6
 
 MONITOR = "val_loss"

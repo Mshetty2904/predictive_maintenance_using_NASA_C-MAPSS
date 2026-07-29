@@ -33,6 +33,7 @@ from config import (
     LR_PATIENCE,
     LSTM_UNITS_1,
     LSTM_UNITS_2,
+    MAX_RUL,
     MIN_LR,
     MONITOR,
     PATIENCE,
@@ -40,6 +41,7 @@ from config import (
 )
 from src.model_utils import print_cv_fold, print_cv_summary
 from src.scaler import FeatureScaler
+from src.nasa_score import nasa_score
 
 
 class LSTMTrainer:
@@ -93,6 +95,7 @@ class LSTMTrainer:
         rmse_scores = []
         mae_scores = []
         r2_scores = []
+        nasa_scores = []
 
         for fold, (train_idx, valid_idx) in enumerate(
             group_kfold.split(
@@ -121,7 +124,7 @@ class LSTMTrainer:
                 monitor="val_loss",
                 patience=PATIENCE,
                 restore_best_weights=True,
-                verbose=0,
+                verbose=1,
             )
 
             model.fit(
@@ -158,20 +161,28 @@ class LSTMTrainer:
                 y_train[valid_idx],
                 predictions,
             )
+            score = nasa_score(
+                y_train[valid_idx],
+                predictions,
+            )
 
             rmse_scores.append(rmse)
             mae_scores.append(mae)
             r2_scores.append(r2)
+            nasa_scores.append(score)
 
-            print_cv_fold(fold, rmse, mae, r2)
+            print_cv_fold(fold, rmse, mae, r2, score)
 
         print_cv_summary(
             rmse_scores,
             mae_scores,
             r2_scores,
+            nasa_scores,
         )
 
-        X_train, X_test = scaler.scale_final_data(bundle)
+        X_train, X_test, fitted_scaler = (
+            scaler.scale_final_data(bundle)
+        )
 
         print("\nTraining Final Model...")
 
@@ -186,26 +197,26 @@ class LSTMTrainer:
             self.model_path
             / f"{bundle.dataset_name}_lstm.keras"
         )
-
+        final_early_stop = EarlyStopping(
+            monitor=MONITOR,
+            patience=PATIENCE,
+            restore_best_weights=True,
+            verbose=1,
+        )
         callbacks = [
-            EarlyStopping(
-                monitor=MONITOR,
-                patience=PATIENCE,
-                restore_best_weights=True,
-                verbose=0,
-            ),
+            final_early_stop,
             ModelCheckpoint(
                 filepath=model_file,
                 monitor=MONITOR,
                 save_best_only=True,
-                verbose=0,
+                verbose=1,
             ),
             ReduceLROnPlateau(
                 monitor=MONITOR,
                 factor=LR_FACTOR,
                 patience=LR_PATIENCE,
                 min_lr=MIN_LR,
-                verbose=0,
+                verbose=1,
             ),
         ]
 
@@ -216,7 +227,7 @@ class LSTMTrainer:
             epochs=EPOCHS,
             batch_size=BATCH_SIZE,
             callbacks=callbacks,
-            verbose=0,
+            verbose=1,
         )
 
         final_model.load_weights(model_file)
@@ -225,6 +236,12 @@ class LSTMTrainer:
             X_test,
             verbose=0,
         ).flatten()
+
+        predictions = np.clip(
+            predictions,
+            0,
+            MAX_RUL,
+        )
 
         final_model.save(model_file)
 

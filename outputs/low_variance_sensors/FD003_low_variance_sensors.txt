@@ -1,0 +1,6 @@
+Dataset : FD003
+Threshold : 0.001
+Total Sensors Removed : 2
+
+Sensor_6
+Sensor_10

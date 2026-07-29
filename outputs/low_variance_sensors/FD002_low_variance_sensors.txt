@@ -1,0 +1,5 @@
+Dataset : FD002
+Threshold : 0.001
+Total Sensors Removed : 1
+
+Sensor_16

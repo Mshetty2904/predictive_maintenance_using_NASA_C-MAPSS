@@ -1,5 +1,7 @@
 from pathlib import Path
+
 from config import MAX_RUL
+
 
 def calculate_rul(train_df):
     """
@@ -9,18 +11,12 @@ def calculate_rul(train_df):
 
     train = train_df.copy()
 
-    max_cycle = (
-        train
-        .groupby("Engine_ID")["Cycle"]
-        .transform("max")
-    )
-
+    # Calculate engine-wise RUL
+    max_cycle = train.groupby("Engine_ID")["Cycle"].transform("max")
     train["RUL"] = max_cycle - train["Cycle"]
 
-    # Piecewise RUL Capping
-    train["RUL"] = train["RUL"].clip(
-        upper=MAX_RUL
-    )
+    # Piecewise RUL capping (NASA CMAPSS standard)
+    train["RUL"] = train["RUL"].clip(upper=MAX_RUL)
 
     return train
 

@@ -8,7 +8,7 @@ from config import (
     STEP_SIZE,
     WINDOW_SIZE,
 )
-
+import os
 from src.cnn_lstm_trainer import CNNLSTMTrainer
 from src.model_utils import (
     evaluate_model,
@@ -17,13 +17,12 @@ from src.model_utils import (
     save_metrics,
 )
 from src.pipeline import TrainingPipeline
-
+from src.plots import ModelPlots
 
 MODEL_NAME = "cnn_lstm"
 
-
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 def main():
-
     print("\nNASA C-MAPSS Predictive Maintenance")
     print(f"Model: {MODEL_NAME}")
 
@@ -51,6 +50,30 @@ def main():
         metrics = evaluate_model(
             bundle.y_test,
             predictions,
+        )
+        plotter = ModelPlots(
+            OUTPUT_PATH / "plots"
+        )
+
+        plotter.plot_actual_vs_predicted(
+            bundle.y_test,
+            predictions,
+            bundle.dataset_name,
+            MODEL_NAME,
+        )
+
+        plotter.plot_residuals(
+            bundle.y_test,
+            predictions,
+            bundle.dataset_name,
+            MODEL_NAME,
+        )
+
+        plotter.plot_residual_histogram(
+            bundle.y_test,
+            predictions,
+            bundle.dataset_name,
+            MODEL_NAME,
         )
 
         save_metrics(

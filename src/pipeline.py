@@ -8,6 +8,10 @@ from src.window_generator import (
     create_test_windows,
 )
 from src.dataset_bundle import DatasetBundle
+from src.preprocess.feature_engineering import (
+    remove_constant_sensors,
+    remove_low_variance_sensors,
+)
 
 
 class TrainingPipeline:
@@ -40,8 +44,25 @@ class TrainingPipeline:
 
         train, test, rul = loader.load_dataset()
 
+        # Calculate Remaining Useful Life (RUL)
         train = calculate_rul(train)
 
+        # Remove constant sensors
+        train, test, removed_sensors = remove_constant_sensors(
+            train=train,
+            test=test,
+            dataset_name=self.dataset_name,
+        )
+
+        # Remove low variance sensors
+        train, test, removed_low_variance = remove_low_variance_sensors(
+            train=train,
+            test=test,
+            dataset_name=self.dataset_name,
+            threshold=0.001,
+        )
+
+        # Save processed datasets
         save_processed_data(
             train,
             test,
@@ -66,16 +87,12 @@ class TrainingPipeline:
         # Return dataset bundle
         return DatasetBundle(
             dataset_name=self.dataset_name,
-
             train=train,
             test=test,
             rul=rul,
-
             X_train=X_train,
             y_train=y_train,
-
             X_test=X_test,
             y_test=y_test,
-
             train_groups=train_groups,
         )
