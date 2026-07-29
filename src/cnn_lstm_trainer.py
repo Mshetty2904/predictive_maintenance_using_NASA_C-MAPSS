@@ -22,7 +22,7 @@ from tensorflow.keras.layers import (
     MaxPooling1D,
 )
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.optimizers import AdamW
 from tensorflow.keras.regularizers import l2
 from config import (
     CNN_FILTERS,
@@ -71,7 +71,7 @@ class CNNLSTMTrainer:
                     kernel_size=5,
                     activation="relu",
                     padding="same",
-                    kernel_regularizer=l2(1e-4),
+                   # kernel_regularizer=l2(1e-4),
                 ),
 
                 BatchNormalization(),
@@ -81,7 +81,7 @@ class CNNLSTMTrainer:
                     kernel_size=3,
                     activation="relu",
                     padding="same",
-                    kernel_regularizer=l2(1e-4),
+                    #kernel_regularizer=l2(1e-4),
                 ),
 
                 BatchNormalization(),
@@ -99,13 +99,13 @@ class CNNLSTMTrainer:
                 Dense(
                     DENSE_1,
                     activation="relu",
-                    kernel_regularizer=l2(1e-4),
+                    #kernel_regularizer=l2(1e-4),
                 ),
 
                 Dense(
                     DENSE_2,
                     activation="relu",
-                    kernel_regularizer=l2(1e-4),
+                    #kernel_regularizer=l2(1e-4),
                 ),
 
                 Dense(1),
@@ -113,8 +113,9 @@ class CNNLSTMTrainer:
         )
 
         model.compile(
-            optimizer=Adam(
-                learning_rate=CNN_LSTM_LEARNING_RATE,
+            optimizer = AdamW(
+                learning_rate=2e-4,
+                weight_decay=1e-4
             ),
             loss="mse",
             metrics=["mae"],
