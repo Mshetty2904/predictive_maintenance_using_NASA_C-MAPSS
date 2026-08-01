@@ -7,49 +7,64 @@ from sklearn.preprocessing import StandardScaler
 class FeatureScaler:
 
     def __init__(self, scaler_path):
-
         self.scaler_path = Path(scaler_path)
         self.scaler_path.mkdir(parents=True, exist_ok=True)
 
-    def fit_transform_pair(self, train_data, other_data):
-
+    def fit_transform_pair(
+        self,
+        train_data,
+        other_data,
+        has_regime=False,
+    ):
         train_samples, time_steps, features = train_data.shape
         other_samples, _, _ = other_data.shape
 
         train_2d = train_data.reshape(-1, features)
         other_2d = other_data.reshape(-1, features)
+        feature_start = 1 if has_regime else 0
 
         scaler = StandardScaler()
+        train_scaled = train_2d.copy()
+        other_scaled = other_2d.copy()
 
-        train_scaled = scaler.fit_transform(train_2d)
-        other_scaled = scaler.transform(other_2d)
-
-        train_scaled = train_scaled.reshape(
-            train_samples,
-            time_steps,
-            features,
+        train_scaled[:, feature_start:] = scaler.fit_transform(
+            train_2d[:, feature_start:]
+        )
+        other_scaled[:, feature_start:] = scaler.transform(
+            other_2d[:, feature_start:]
         )
 
-        other_scaled = other_scaled.reshape(
-            other_samples,
-            time_steps,
-            features,
+        return (
+            train_scaled.reshape(train_samples, time_steps, features),
+            other_scaled.reshape(other_samples, time_steps, features),
+            scaler,
         )
 
-        return train_scaled, other_scaled, scaler
-
-    def scale_final_data(self, bundle):
+    def scale_final_data(self, bundle, train_idx=None, valid_idx=None):
+        has_regime = "Regime_ID" in bundle.train.columns
+        train_data = (
+            bundle.X_train
+            if train_idx is None
+            else bundle.X_train[train_idx]
+        )
 
         X_train, X_test, scaler = self.fit_transform_pair(
-            bundle.X_train,
+            train_data,
             bundle.X_test,
+            has_regime=has_regime,
         )
 
-        scaler_file = (
-            self.scaler_path
-            / f"{bundle.dataset_name}_scaler.pkl"
+        joblib.dump(
+            scaler,
+            self.scaler_path / f"{bundle.dataset_name}_scaler.pkl",
         )
 
-        joblib.dump(scaler, scaler_file)
+        if valid_idx is None:
+            return X_train, X_test, scaler
 
-        return X_train, X_test, scaler
+        _, X_valid, _ = self.fit_transform_pair(
+            train_data,
+            bundle.X_train[valid_idx],
+            has_regime=has_regime,
+        )
+        return X_train, X_valid, X_test, scaler

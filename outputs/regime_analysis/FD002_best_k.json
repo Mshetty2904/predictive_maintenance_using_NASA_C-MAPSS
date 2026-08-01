@@ -1,0 +1,8 @@
+{
+    "dataset": "FD002",
+    "recommended_k": 6,
+    "silhouette": 6,
+    "davies_bouldin": 6,
+    "calinski_harabasz": 10,
+    "elbow": 2
+}

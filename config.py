@@ -35,6 +35,9 @@ WINDOW_SIZE = 30
 
 RANDOM_STATE = 42
 
+# Run all benchmark models from the same prepared DatasetBundle.
+MODEL_NAMES = ("xgboost", "lstm", "cnn_lstm")
+
 TEST_SIZE = 0.20
 
 # ==========================================================
@@ -78,17 +81,16 @@ LSTM_PATIENCE = 12
 # ==========================================================
 
 CNN_FILTERS = 64
-#64
 CNN_KERNEL_SIZE = 5
 POOL_SIZE = 2
 CNN_LSTM_DROPOUT = 0.20
 CNN_LSTM_LEARNING_RATE = 2e-4
-CNN_LSTM_PATIENCE = 10
+CNN_LSTM_PATIENCE = 15
 #18
 CNN_LSTM_BATCH_SIZE = 64
-CNN_LSTM_LR_PATIENCE = 4
+CNN_LSTM_LR_PATIENCE = 6
 #5
-CNN_LSTM_EPOCHS = 75
+CNN_LSTM_EPOCHS = 100
 # ==========================================================
 # DRIFT
 # ==========================================================
@@ -98,11 +100,6 @@ PSI_THRESHOLD = 0.20
 KS_PVALUE = 0.05
 
 WINDOW_SIZE = 30
-STEP_SIZE = 1
-
-VALIDATION_SIZE = 0.20
-
-RANDOM_STATE = 42
 
 SCALER_PATH = PROJECT_ROOT / "scalers"
 
@@ -110,11 +107,15 @@ SCALER_PATH = PROJECT_ROOT / "scalers"
 # Callbacks
 # ===================================
 
-VALIDATION_SPLIT = 0.10
+# Validation is performed by engine group, not by random overlapping windows.
+VALIDATION_GROUP_SIZE = 0.10
 
 LR_FACTOR = 0.5
 MIN_LR = 1e-6
 
 MONITOR = "val_loss"
 
+USE_REGIME_CLUSTERING = True
+REGIME_DATASETS = ("FD002", "FD004")
+STEP_SIZE = 1
 MAX_RUL = 125

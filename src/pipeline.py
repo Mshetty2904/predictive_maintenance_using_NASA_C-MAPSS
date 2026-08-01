@@ -1,3 +1,11 @@
+
+from src.preprocess.regime_cluster_analysis import (
+    RegimeClusterAnalysis,
+)
+
+from src.preprocess.regime_processor import (
+    RegimeProcessor,
+)
 from src.data_loader import DataLoader
 from src.preprocessing import (
     calculate_rul,
@@ -11,6 +19,11 @@ from src.dataset_bundle import DatasetBundle
 from src.preprocess.feature_engineering import (
     remove_constant_sensors,
     remove_low_variance_sensors,
+)
+from config import (
+    RANDOM_STATE,
+    REGIME_DATASETS,
+    USE_REGIME_CLUSTERING,
 )
 
 
@@ -61,7 +74,57 @@ class TrainingPipeline:
             dataset_name=self.dataset_name,
             threshold=0.001,
         )
+        # -----------------------------------
+        # Analyze operating regimes
+        # (FD002 & FD004 only)
+        # -----------------------------------
 
+        if USE_REGIME_CLUSTERING and self.dataset_name in REGIME_DATASETS:
+
+        #     # ----------------------------------
+        #     # Find optimal number of regimes
+        #     # ----------------------------------
+
+            analysis = RegimeClusterAnalysis(
+                output_dir=self.processed_path / "regime_analysis" / self.dataset_name,
+                random_state=RANDOM_STATE,
+            )
+
+            best_k = analysis.analyze(
+                train_df=train,
+                dataset_name=self.dataset_name,
+            )
+
+            print(f"\nOptimal Clusters : {best_k}")
+
+        #     # ----------------------------------
+        #     # Train regime processor
+        #     # ----------------------------------
+
+            processor = RegimeProcessor(
+                output_dir=self.processed_path / "regime_models" / self.dataset_name,
+                random_state=RANDOM_STATE,
+            )
+
+            processor.fit_cluster_model(
+                train_df=train,
+                n_clusters=best_k,
+            )
+
+            train = processor.assign_regimes(train)
+            test = processor.assign_regimes(test)
+
+            processor.fit_scalers(train)
+            print(
+                "\nOperating regime preprocessing completed."
+            )
+            train = processor.transform(train)
+            test = processor.transform(test)
+            print("\nTrain Regime Distribution")
+            print(train["Regime_ID"].value_counts().sort_index())
+
+            print("\nTest Regime Distribution")
+            print(test["Regime_ID"].value_counts().sort_index())
         # Save processed datasets
         save_processed_data(
             train,

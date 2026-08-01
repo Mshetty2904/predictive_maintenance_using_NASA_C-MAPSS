@@ -37,14 +37,19 @@ class DataLoader:
             names=["RUL"],
         )
 
+        if len(rul) != test["Engine_ID"].nunique():
+            raise ValueError(
+                f"RUL rows ({len(rul)}) do not match test engines "
+                f"({test['Engine_ID'].nunique()}) for {self.dataset_name}."
+            )
         # Do NOT cap the NASA test RUL values.
         return train, test, rul
 
-    @staticmethod
-    def dataset_summary(train, test):
+    def dataset_summary(self, train, test):
         summary = pd.DataFrame(
             {
-                "Dataset": ["Train", "Test"],
+                "Dataset_Name": [self.dataset_name, self.dataset_name],
+                "Split": ["Train", "Test"],
                 "Rows": [len(train), len(test)],
                 "Columns": [train.shape[1], test.shape[1]],
                 "Engines": [

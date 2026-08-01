@@ -143,5 +143,4 @@ def remove_low_variance_sensors(
     print(
         f"\nLow variance sensor report saved to:\n{output_file}"
     )
-
     return train, test, low_variance_sensors
