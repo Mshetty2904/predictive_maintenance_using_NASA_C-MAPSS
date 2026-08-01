@@ -60,7 +60,7 @@ XGB_EARLY_STOPPING_ROUNDS = 40
 # LSTM
 # ==========================================================
 
-LSTM_UNITS_1 = 128
+LSTM_UNITS_1 = 64
 LSTM_UNITS_2 = 64
 
 DENSE_1 = 64
@@ -68,7 +68,7 @@ DENSE_2 = 32
 
 LSTM_DROPOUT = 0.20
 
-LSTM_LEARNING_RATE = 5e-4
+LSTM_LEARNING_RATE = 1e-3
 
 BATCH_SIZE = 64
 
@@ -91,6 +91,10 @@ CNN_LSTM_BATCH_SIZE = 64
 CNN_LSTM_LR_PATIENCE = 6
 #5
 CNN_LSTM_EPOCHS = 100
+
+# Shared CNN-BiLSTM-Attention architecture used for every dataset.
+ATTENTION_HEADS = 4
+ATTENTION_KEY_DIM = 16
 # ==========================================================
 # DRIFT
 # ==========================================================

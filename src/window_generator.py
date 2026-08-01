@@ -25,6 +25,18 @@ def create_train_windows(data, window_size=30, step_size=1):
     for engine_id, engine in data.groupby("Engine_ID"):
         engine = engine.reset_index(drop=True)
 
+        values = engine[feature_columns].to_numpy()
+        if len(values) < window_size:
+            padded = np.zeros(
+                (window_size, len(feature_columns)),
+                dtype=values.dtype,
+            )
+            padded[-len(values):] = values
+            X.append(padded)
+            y.append(engine.loc[len(engine) - 1, "RUL"])
+            groups.append(engine_id)
+            continue
+
         for start in range(
             0,
             len(engine) - window_size + 1,
@@ -51,12 +63,12 @@ def create_test_windows(test, rul, window_size=30):
         window = engine[feature_columns].values
 
         if len(window) < window_size:
-            pad_rows = np.repeat(
-                window[[0]],
-                window_size - len(window),
-                axis=0,
+            padded = np.zeros(
+                (window_size, len(feature_columns)),
+                dtype=window.dtype,
             )
-            window = np.vstack((pad_rows, window))
+            padded[-len(window):] = window
+            window = padded
         else:
             window = window[-window_size:]
 

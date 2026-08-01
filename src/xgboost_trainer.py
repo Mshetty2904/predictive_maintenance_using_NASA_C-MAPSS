@@ -79,6 +79,10 @@ class XGBoostTrainer:
         final_rounds = int(np.median(best_rounds))
         print("\nTraining Final XGBoost Model...")
         print(f"Selected Trees: {final_rounds}")
+        print(
+            "XGBoost validation loss is not epoch-based; "
+            "the preceding 5-fold engine-wise metrics are the validation results."
+        )
         final_model = self.build_model(n_estimators=final_rounds)
         final_model.fit(X_train, y_train, verbose=False)
         predictions = np.clip(final_model.predict(X_test), 0, MAX_RUL)

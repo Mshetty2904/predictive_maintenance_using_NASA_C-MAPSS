@@ -4,8 +4,20 @@ import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import GroupKFold, GroupShuffleSplit
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
-from tensorflow.keras.layers import BatchNormalization, Conv1D, Dense, Dropout, Input, LSTM
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import (
+    Add,
+    BatchNormalization,
+    Bidirectional,
+    Conv1D,
+    Dense,
+    Dropout,
+    GlobalAveragePooling1D,
+    Input,
+    LayerNormalization,
+    LSTM,
+    MultiHeadAttention,
+)
+from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 
@@ -18,6 +30,8 @@ from config import (
     CNN_LSTM_LEARNING_RATE,
     CNN_LSTM_LR_PATIENCE,
     CNN_LSTM_PATIENCE,
+    ATTENTION_HEADS,
+    ATTENTION_KEY_DIM,
     DENSE_1,
     DENSE_2,
     LSTM_UNITS_2,
@@ -28,7 +42,11 @@ from config import (
     RANDOM_STATE,
     VALIDATION_GROUP_SIZE,
 )
-from src.model_utils import print_cv_fold, print_cv_summary
+from src.model_utils import (
+    print_cv_fold,
+    print_cv_summary,
+    print_training_diagnostics,
+)
 from src.nasa_score import nasa_score
 from src.scaler import FeatureScaler
 
@@ -41,33 +59,48 @@ class CNNLSTMTrainer:
         self.model_path.mkdir(parents=True, exist_ok=True)
 
     def build_model(self, input_shape):
-        model = Sequential(
-            [
-                Input(shape=input_shape),
-                Conv1D(
-                    filters=CNN_FILTERS,
-                    kernel_size=CNN_KERNEL_SIZE,
-                    activation="relu",
-                    padding="same",
-                    kernel_regularizer=l2(1e-4),
-                ),
-                BatchNormalization(),
-                Conv1D(
-                    filters=CNN_FILTERS,
-                    kernel_size=3,
-                    activation="relu",
-                    padding="same",
-                    kernel_regularizer=l2(1e-4),
-                ),
-                BatchNormalization(),
-                Dropout(CNN_LSTM_DROPOUT),
-                LSTM(LSTM_UNITS_2),
-                Dropout(CNN_LSTM_DROPOUT),
-                Dense(DENSE_1, activation="relu", kernel_regularizer=l2(1e-4)),
-                Dense(DENSE_2, activation="relu", kernel_regularizer=l2(1e-4)),
-                Dense(1),
-            ]
-        )
+        """Build the same CNN-BiLSTM-Attention model for every dataset."""
+        inputs = Input(shape=input_shape)
+        x = Conv1D(
+            filters=CNN_FILTERS,
+            kernel_size=CNN_KERNEL_SIZE,
+            activation="relu",
+            padding="same",
+            kernel_regularizer=l2(1e-4),
+        )(inputs)
+        x = BatchNormalization()(x)
+        x = Dropout(CNN_LSTM_DROPOUT)(x)
+
+        x = Bidirectional(
+            LSTM(
+                LSTM_UNITS_2,
+                return_sequences=True,
+                dropout=CNN_LSTM_DROPOUT,
+            )
+        )(x)
+
+        attention_output = MultiHeadAttention(
+            num_heads=ATTENTION_HEADS,
+            key_dim=ATTENTION_KEY_DIM,
+            dropout=CNN_LSTM_DROPOUT,
+        )(x, x)
+        x = Add()([x, attention_output])
+        x = LayerNormalization()(x)
+        x = GlobalAveragePooling1D()(x)
+        x = Dense(
+            DENSE_1,
+            activation="relu",
+            kernel_regularizer=l2(1e-4),
+        )(x)
+        x = Dropout(CNN_LSTM_DROPOUT)(x)
+        x = Dense(
+            DENSE_2,
+            activation="relu",
+            kernel_regularizer=l2(1e-4),
+        )(x)
+        outputs = Dense(1)(x)
+
+        model = Model(inputs=inputs, outputs=outputs)
         model.compile(
             optimizer=Adam(learning_rate=CNN_LSTM_LEARNING_RATE),
             loss="mse",
@@ -94,7 +127,9 @@ class CNNLSTMTrainer:
                 X_train_raw[valid_idx],
                 has_regime=has_regime,
             )
-            model = self.build_model(X_train_fold.shape[1:])
+            model = self.build_model(
+                X_train_fold.shape[1:],
+            )
             model.fit(
                 X_train_fold,
                 y_train[train_idx],
@@ -140,7 +175,9 @@ class CNNLSTMTrainer:
         )
 
         print("\nTraining Final CNN-LSTM Model...")
-        final_model = self.build_model(X_train.shape[1:])
+        final_model = self.build_model(
+            X_train.shape[1:],
+        )
         model_file = self.model_path / f"{bundle.dataset_name}_cnn_lstm.keras"
         history = final_model.fit(
             X_train,
@@ -172,6 +209,11 @@ class CNNLSTMTrainer:
             verbose=0,
         )
         print(f"Best Epoch: {int(np.argmin(history.history['val_loss'])) + 1}")
+        print_training_diagnostics(
+            history,
+            bundle.dataset_name,
+            "CNN-BiLSTM-Attention",
+        )
         final_model.load_weights(str(model_file))
         predictions = final_model.predict(X_test, verbose=0).flatten()
         predictions = np.clip(predictions, 0, MAX_RUL)

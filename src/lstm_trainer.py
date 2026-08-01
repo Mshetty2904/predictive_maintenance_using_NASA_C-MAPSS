@@ -12,7 +12,7 @@ from tensorflow.keras.callbacks import (
     ModelCheckpoint,
     ReduceLROnPlateau,
 )
-from tensorflow.keras.layers import BatchNormalization, Dense, Dropout, Input, LSTM
+from tensorflow.keras.layers import Dense, Dropout, Input, LSTM
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
@@ -33,7 +33,11 @@ from config import (
     VALIDATION_GROUP_SIZE,
     RANDOM_STATE,
 )
-from src.model_utils import print_cv_fold, print_cv_summary
+from src.model_utils import (
+    print_cv_fold,
+    print_cv_summary,
+    print_training_diagnostics,
+)
 from src.scaler import FeatureScaler
 from src.nasa_score import nasa_score
 
@@ -49,13 +53,10 @@ class LSTMTrainer:
         model = Sequential(
             [
                 Input(shape=input_shape),
-                LSTM(LSTM_UNITS_1, return_sequences=True),
-                BatchNormalization(),
-                Dropout(LSTM_DROPOUT),
-                LSTM(LSTM_UNITS_2),
-                BatchNormalization(),
+                LSTM(LSTM_UNITS_1),
                 Dropout(LSTM_DROPOUT),
                 Dense(DENSE_1, activation="relu"),
+                Dropout(LSTM_DROPOUT),
                 Dense(DENSE_2, activation="relu"),
                 Dense(1),
             ]
@@ -164,6 +165,11 @@ class LSTMTrainer:
             verbose=0,
         )
         print(f"Best Epoch: {int(np.argmin(history.history['val_loss'])) + 1}")
+        print_training_diagnostics(
+            history,
+            bundle.dataset_name,
+            "LSTM",
+        )
         final_model.load_weights(str(model_file))
         predictions = final_model.predict(X_test, verbose=0).flatten()
         predictions = np.clip(predictions, 0, MAX_RUL)

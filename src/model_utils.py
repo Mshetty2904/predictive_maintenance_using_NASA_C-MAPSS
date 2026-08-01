@@ -61,3 +61,40 @@ def print_final_metrics(metrics):
     print(f"MAE        : {result['MAE']:.3f}")
     print(f"R2         : {result['R2']:.3f}")
     print(f"NASA Score : {result['NASA Score']:.3f}")
+
+
+def print_training_diagnostics(history, dataset, model_name):
+    """Print concise final-fit diagnostics for a neural model."""
+    history_data = history.history if hasattr(history, "history") else history
+    train_loss = np.asarray(history_data.get("loss", []), dtype=float)
+    valid_loss = np.asarray(history_data.get("val_loss", []), dtype=float)
+
+    if train_loss.size == 0 or valid_loss.size == 0:
+        print(f"{dataset} {model_name}: validation loss unavailable.")
+        return
+
+    best_epoch = int(np.argmin(valid_loss)) + 1
+    best_val = float(np.min(valid_loss))
+    final_train = float(train_loss[-1])
+    final_val = float(valid_loss[-1])
+    gap = final_val - final_train
+
+    # This is a diagnostic heuristic, not a statistical test.
+    if final_val > best_val * 1.10 and final_train < best_val:
+        assessment = "possible overfitting"
+    elif best_epoch == len(valid_loss) and final_train > best_val * 1.10:
+        assessment = "possible underfitting"
+    else:
+        assessment = "reasonable fit"
+
+    print(f"\n{dataset} {model_name} final-fit diagnostics")
+    print(f"Best epoch             : {best_epoch}")
+    print(f"Best validation loss   : {best_val:.5f}")
+    print(f"Final training loss    : {final_train:.5f}")
+    print(f"Final validation loss  : {final_val:.5f}")
+    print(f"Validation gap         : {gap:.5f}")
+    print(f"Fit assessment         : {assessment}")
+
+    if "val_mae" in history_data:
+        val_mae = np.asarray(history_data["val_mae"], dtype=float)
+        print(f"Best validation MAE    : {float(np.min(val_mae)):.5f}")
