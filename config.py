@@ -31,7 +31,7 @@ DATASETS = [
 
 DATASET = "FD001"
 
-WINDOW_SIZE = 30
+WINDOW_SIZE = 50
 
 RANDOM_STATE = 42
 
@@ -97,13 +97,14 @@ ATTENTION_HEADS = 4
 ATTENTION_KEY_DIM = 16
 # ==========================================================
 # DRIFT
-# ==========================================================
+# =================================
+# =========================
 
 PSI_THRESHOLD = 0.20
 
 KS_PVALUE = 0.05
 
-WINDOW_SIZE = 30
+#WINDOW_SIZE = 50
 
 SCALER_PATH = PROJECT_ROOT / "scalers"
 
@@ -112,7 +113,12 @@ SCALER_PATH = PROJECT_ROOT / "scalers"
 # ===================================
 
 # Validation is performed by engine group, not by random overlapping windows.
-VALIDATION_GROUP_SIZE = 0.10
+VALIDATION_SIZE_BY_DATASET = {
+    "FD001": 0.20,
+    "FD002": 0.10,
+    "FD003": 0.20,
+    "FD004": 0.10,
+}
 
 LR_FACTOR = 0.5
 MIN_LR = 1e-6

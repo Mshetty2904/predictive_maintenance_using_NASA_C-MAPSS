@@ -1,0 +1,6 @@
+Dataset : FD003
+Method  : StandardScaler fitted on training sensors only
+Sensors : 14
+Max absolute train mean : 0.00000000
+Max train std error     : 0.00000000
+Scaler                 : E:\PdM\scalers\FD003_global_zscore.pkl

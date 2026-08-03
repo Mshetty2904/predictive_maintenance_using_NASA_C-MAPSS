@@ -9,7 +9,6 @@ from sklearn.metrics import (
 from sklearn.model_selection import GroupKFold, GroupShuffleSplit
 from tensorflow.keras.callbacks import (
     EarlyStopping,
-    ModelCheckpoint,
     ReduceLROnPlateau,
 )
 from tensorflow.keras.layers import Dense, Dropout, Input, LSTM
@@ -30,13 +29,14 @@ from config import (
     MIN_LR,
     MONITOR,
     LSTM_PATIENCE,
-    VALIDATION_GROUP_SIZE,
+    VALIDATION_SIZE_BY_DATASET,
     RANDOM_STATE,
 )
 from src.model_utils import (
     print_cv_fold,
     print_cv_summary,
     print_training_diagnostics,
+    save_keras_model_safely,
 )
 from src.scaler import FeatureScaler
 from src.nasa_score import nasa_score
@@ -120,7 +120,7 @@ class LSTMTrainer:
 
         final_split = GroupShuffleSplit(
             n_splits=1,
-            test_size=VALIDATION_GROUP_SIZE,
+            test_size=VALIDATION_SIZE_BY_DATASET[bundle.dataset_name],
             random_state=RANDOM_STATE,
         )
         fit_idx, valid_idx = next(
@@ -148,12 +148,6 @@ class LSTMTrainer:
                     restore_best_weights=True,
                     verbose=0,
                 ),
-                ModelCheckpoint(
-                    filepath=str(model_file),
-                    monitor=MONITOR,
-                    save_best_only=True,
-                    verbose=0,
-                ),
                 ReduceLROnPlateau(
                     monitor=MONITOR,
                     factor=LR_FACTOR,
@@ -169,10 +163,14 @@ class LSTMTrainer:
             history,
             bundle.dataset_name,
             "LSTM",
+            model=final_model,
+            X_train=X_train,
+            y_train=y_train[fit_idx],
+            X_valid=X_valid,
+            y_valid=y_train[valid_idx],
         )
-        final_model.load_weights(str(model_file))
         predictions = final_model.predict(X_test, verbose=0).flatten()
         predictions = np.clip(predictions, 0, MAX_RUL)
-        final_model.save(str(model_file))
+        save_keras_model_safely(final_model, model_file)
         self.history = history.history
         return final_model, predictions

@@ -3,11 +3,16 @@ from pathlib import Path
 import joblib
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.model_selection import GroupKFold
+from sklearn.model_selection import GroupKFold, GroupShuffleSplit
 from xgboost import XGBRegressor
 from xgboost.callback import EarlyStopping
 
-from config import MAX_RUL, XGB_EARLY_STOPPING_ROUNDS, XGB_PARAMS
+from config import (
+    MAX_RUL,
+    VALIDATION_SIZE_BY_DATASET,
+    XGB_EARLY_STOPPING_ROUNDS,
+    XGB_PARAMS,
+)
 from src.model_utils import print_cv_fold, print_cv_summary
 from src.nasa_score import nasa_score
 from src.window_generator import flatten_windows
@@ -83,6 +88,40 @@ class XGBoostTrainer:
             "XGBoost validation loss is not epoch-based; "
             "the preceding 5-fold engine-wise metrics are the validation results."
         )
+        final_split = GroupShuffleSplit(
+            n_splits=1,
+            test_size=VALIDATION_SIZE_BY_DATASET[bundle.dataset_name],
+            random_state=42,
+        )
+        fit_idx, valid_idx = next(
+            final_split.split(
+                X_train,
+                y_train,
+                groups=bundle.train_groups,
+            )
+        )
+
+        validation_model = self.build_model(n_estimators=final_rounds)
+        validation_model.fit(
+            X_train[fit_idx],
+            y_train[fit_idx],
+            eval_set=[(X_train[valid_idx], y_train[valid_idx])],
+            verbose=False,
+        )
+
+        validation_predictions = np.clip(
+            validation_model.predict(X_train[valid_idx]),
+            0,
+            MAX_RUL,
+        )
+        print(
+            "Final engine-holdout validation: "
+            f"RMSE={np.sqrt(mean_squared_error(y_train[valid_idx], validation_predictions)):.3f} "
+            f"MAE={mean_absolute_error(y_train[valid_idx], validation_predictions):.3f} "
+            f"R2={r2_score(y_train[valid_idx], validation_predictions):.3f}"
+        )
+
+        # Retrain the deployable model on all available training engines.
         final_model = self.build_model(n_estimators=final_rounds)
         final_model.fit(X_train, y_train, verbose=False)
         predictions = np.clip(final_model.predict(X_test), 0, MAX_RUL)

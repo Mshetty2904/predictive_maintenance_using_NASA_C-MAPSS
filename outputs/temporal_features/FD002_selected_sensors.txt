@@ -1,0 +1,13 @@
+Dataset : FD002
+Rolling window : 5
+Features per selected sensor: diff1, rolling mean, rolling std
+
+Selected sensors:
+Sensor_11
+Sensor_4
+Sensor_15
+Sensor_17
+Sensor_2
+Sensor_3
+Sensor_12
+Sensor_7

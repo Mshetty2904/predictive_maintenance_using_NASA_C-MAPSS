@@ -1,0 +1,691 @@
+MODEL - 6
+NASA C-MAPSS Predictive Maintenance
+Models: xgboost, lstm, cnn_lstm
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD001_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD001_low_variance_sensors.txt
+E:\PdM\src\preprocess\feature_engineering.py:164: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise in a future error of pandas. Value '[-0.78170979 -0.78170979 -2.07309423 ...  3.09244354  1.15536688
+  1.8010591 ]' has dtype incompatible with int64, please explicitly cast to a compatible dtype first.
+  train.loc[:, sensor_columns] = scaler.fit_transform(train[sensor_columns])
+E:\PdM\src\preprocess\feature_engineering.py:165: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise in a future error of pandas. Value '[-0.78170979 -0.13601757 -0.13601757 ...  1.15536688  1.15536688
+  1.8010591 ]' has dtype incompatible with int64, please explicitly cast to a compatible dtype first.
+  test.loc[:, sensor_columns] = scaler.transform(test[sensor_columns])
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD001_zscore_report.txt
+
+============================================================
+Dataset: FD001 | Model: xgboost
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 17731
+Test windows  : 100
+Window shape  : (30, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=15.307 MAE=11.705 R2=0.866 NASA=14072.037
+Fold 2: RMSE=15.291 MAE=11.429 R2=0.866 NASA=14046.583
+Fold 3: RMSE=13.693 MAE=10.275 R2=0.893 NASA=11370.134
+Fold 4: RMSE=15.421 MAE=11.617 R2=0.864 NASA=17543.291
+Fold 5: RMSE=14.063 MAE=10.485 R2=0.887 NASA=12900.568
+
+Cross-Validation Average
+RMSE       : 14.755
+MAE        : 11.102
+R2         : 0.875
+NASA Score : 13986.523
+
+Training Final XGBoost Model...
+Selected Trees: 1088
+XGBoost validation loss is not epoch-based; the preceding 5-fold engine-wise metrics are the validation results.
+Final engine-holdout validation: RMSE=13.342 MAE=9.834 R2=0.898
+
+Final NASA Test Metrics
+RMSE       : 14.314
+MAE        : 10.982
+R2         : 0.881
+NASA Score : 322.917
+
+============================================================
+Dataset: FD001 | Model: lstm
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 17731
+Test windows  : 100
+Window shape  : (30, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=14.797 MAE=10.955 R2=0.875 NASA=12999.714
+Fold 2: RMSE=14.243 MAE=10.875 R2=0.884 NASA=9701.916
+Fold 3: RMSE=12.315 MAE=9.052 R2=0.913 NASA=8549.541
+Fold 4: RMSE=13.474 MAE=9.815 R2=0.896 NASA=13599.947
+Fold 5: RMSE=13.887 MAE=10.467 R2=0.890 NASA=11913.901
+
+Cross-Validation Average
+RMSE       : 13.743
+MAE        : 10.233
+R2         : 0.892
+NASA Score : 11353.004
+
+Training Final LSTM Model...
+Best Epoch: 17
+
+FD001 LSTM final-fit diagnostics
+Best epoch             : 17
+Best validation loss   : 160.61784
+Final training loss    : 144.84415
+Final validation loss  : 160.61780
+Validation gap         : 15.77365
+Fit assessment         : reasonable fit
+Best validation MAE    : 9.28301
+
+Final NASA Test Metrics
+RMSE       : 14.555
+MAE        : 11.097
+R2         : 0.877
+NASA Score : 348.174
+
+============================================================
+Dataset: FD001 | Model: cnn_lstm
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 17731
+Test windows  : 100
+Window shape  : (30, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=14.586 MAE=10.316 R2=0.878 NASA=13582.453
+Fold 2: RMSE=14.378 MAE=10.010 R2=0.882 NASA=16326.195
+Fold 3: RMSE=12.203 MAE=8.500 R2=0.915 NASA=8350.390
+Fold 4: RMSE=13.413 MAE=9.686 R2=0.897 NASA=14768.445
+Fold 5: RMSE=13.965 MAE=10.043 R2=0.888 NASA=14016.790
+
+Cross-Validation Average
+RMSE       : 13.709
+MAE        : 9.711
+R2         : 0.892
+NASA Score : 13408.855
+
+Training Final CNN-LSTM Model...
+Best Epoch: 5
+
+FD001 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 5
+Best validation loss   : 159.09064
+Final training loss    : 147.44806
+Final validation loss  : 159.09065
+Validation gap         : 11.64259
+Fit assessment         : reasonable fit
+Best validation MAE    : 9.14508
+
+Final NASA Test Metrics
+RMSE       : 15.809
+MAE        : 11.253
+R2         : 0.855
+NASA Score : 482.608
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD002_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD002_low_variance_sensors.txt
+
+Unique operating conditions: 9824
+
+========================================
+Operating Regime Analysis : FD002
+========================================
+Samples              : 53759
+Features             : 3
+Cluster Range        : 2 - 10
+
+Evaluating candidate clusters...
+
+Evaluating K = 2
+Evaluating K = 3
+Evaluating K = 4
+Evaluating K = 5
+Evaluating K = 6
+Evaluating K = 7
+Evaluating K = 8
+Evaluating K = 9
+Evaluating K = 10
+
+========================================
+Cluster Evaluation Metrics
+========================================
+   Clusters  ...  Calinski_Harabasz
+0         2  ...       6.789473e+04
+1         3  ...       2.281360e+05
+2         4  ...       4.968524e+05
+3         5  ...       1.897869e+06
+4         6  ...       7.377668e+09
+5         7  ...       7.702519e+09
+6         8  ...       7.884369e+09
+7         9  ...       8.499977e+09
+8        10  ...       9.808113e+09
+
+[9 rows x 5 columns]
+
+Cluster metrics saved to:
+E:\PdM\dataset\processed\regime_analysis\FD002\FD002_cluster_metrics.csv
+
+========================================
+Best Cluster Count by Metric
+========================================
+Silhouette Score     : 6
+Davies-Bouldin Index : 6
+Calinski-Harabasz    : 10
+Elbow Method         : 2
+
+========================================
+Final Recommendation
+========================================
+Recommended K : 6
+
+Vote Summary
+K = 2 : 1 vote(s)
+K = 6 : 2 vote(s)
+K = 10 : 1 vote(s)
+
+Recommendation saved to:
+E:\PdM\dataset\processed\regime_analysis\FD002\FD002_best_k.json
+
+Evaluation plots saved successfully.
+
+Optimal Clusters : 6
+
+Fitted 6 regime scalers.
+
+Operating regime preprocessing completed.
+
+Train Regime Distribution
+Regime_ID
+0    13458
+1     8044
+2     8122
+3     8002
+4     8096
+5     8037
+Name: count, dtype: int64
+
+Test Regime Distribution
+Regime_ID
+0    8483
+1    5148
+2    5063
+3    5042
+4    5107
+5    5148
+Name: count, dtype: int64
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD002_zscore_report.txt
+Temporal degradation features added for: ['Sensor_11', 'Sensor_4', 'Sensor_15', 'Sensor_17', 'Sensor_2', 'Sensor_3', 'Sensor_12', 'Sensor_7']
+Temporal feature report saved to:
+E:\PdM\outputs\temporal_features\FD002_selected_sensors.txt
+
+============================================================
+Dataset: FD002 | Model: xgboost
+============================================================
+Train engines : 260
+Test engines  : 259
+Train windows : 46219
+Test windows  : 259
+Window shape  : (30, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=16.156 MAE=12.067 R2=0.851 NASA=44100.545
+Fold 2: RMSE=14.948 MAE=11.096 R2=0.872 NASA=43487.863
+Fold 3: RMSE=15.378 MAE=11.399 R2=0.865 NASA=40368.550
+Fold 4: RMSE=16.201 MAE=11.931 R2=0.850 NASA=57037.213
+Fold 5: RMSE=16.606 MAE=12.344 R2=0.842 NASA=52465.910
+
+Cross-Validation Average
+RMSE       : 15.858
+MAE        : 11.768
+R2         : 0.856
+NASA Score : 47492.016
+
+Training Final XGBoost Model...
+Selected Trees: 527
+XGBoost validation loss is not epoch-based; the preceding 5-fold engine-wise metrics are the validation results.
+Final engine-holdout validation: RMSE=16.626 MAE=12.273 R2=0.841
+
+Final NASA Test Metrics
+RMSE       : 26.633
+MAE        : 17.384
+R2         : 0.755
+NASA Score : 8727.524
+
+============================================================
+Dataset: FD002 | Model: lstm
+============================================================
+Train engines : 260
+Test engines  : 259
+Train windows : 46219
+Test windows  : 259
+Window shape  : (30, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=16.804 MAE=12.614 R2=0.838 NASA=54351.599
+Fold 2: RMSE=15.440 MAE=11.098 R2=0.864 NASA=57239.938
+Fold 3: RMSE=15.926 MAE=11.558 R2=0.855 NASA=51365.306
+Fold 4: RMSE=16.517 MAE=12.021 R2=0.844 NASA=63498.014
+Fold 5: RMSE=17.926 MAE=12.891 R2=0.816 NASA=83068.075
+
+Cross-Validation Average
+RMSE       : 16.522
+MAE        : 12.036
+R2         : 0.843
+NASA Score : 61904.587
+
+Training Final LSTM Model...
+Best Epoch: 3
+
+FD002 LSTM final-fit diagnostics
+Best epoch             : 3
+Best validation loss   : 276.40628
+Final training loss    : 140.56648
+Final validation loss  : 276.40628
+Validation gap         : 135.83980
+Fit assessment         : possible overfitting
+Best validation MAE    : 12.20861
+
+Final NASA Test Metrics
+RMSE       : 27.012
+MAE        : 18.514
+R2         : 0.748
+NASA Score : 7416.015
+
+============================================================
+Dataset: FD002 | Model: cnn_lstm
+============================================================
+Train engines : 260
+Test engines  : 259
+Train windows : 46219
+Test windows  : 259
+Window shape  : (30, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=16.748 MAE=13.021 R2=0.839 NASA=47380.976
+Fold 2: RMSE=15.497 MAE=11.208 R2=0.863 NASA=53335.603
+Fold 3: RMSE=16.362 MAE=12.344 R2=0.847 NASA=47773.166
+Fold 4: RMSE=17.082 MAE=12.744 R2=0.833 NASA=51931.441
+Fold 5: RMSE=17.557 MAE=12.721 R2=0.824 NASA=79738.812
+
+Cross-Validation Average
+RMSE       : 16.649
+MAE        : 12.408
+R2         : 0.841
+NASA Score : 56031.999
+
+Training Final CNN-LSTM Model...
+Best Epoch: 2
+
+FD002 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 2
+Best validation loss   : 257.39395
+Final training loss    : 202.79469
+Final validation loss  : 257.39401
+Validation gap         : 54.59932
+Fit assessment         : reasonable fit
+Best validation MAE    : 12.03330
+
+Final NASA Test Metrics
+RMSE       : 27.818
+MAE        : 18.861
+R2         : 0.732
+NASA Score : 9861.786
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD003_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD003_low_variance_sensors.txt
+E:\PdM\src\preprocess\feature_engineering.py:164: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise in a future error of pandas. Value '[-0.88936355 -0.32164071 -0.88936355 ...  1.94925065  1.38152781
+  1.94925065]' has dtype incompatible with int64, please explicitly cast to a compatible dtype first.
+  train.loc[:, sensor_columns] = scaler.fit_transform(train[sensor_columns])
+E:\PdM\src\preprocess\feature_engineering.py:165: FutureWarning: Setting an item of incompatible dtype is deprecated and will raise in a future error of pandas. Value '[-0.88936355 -0.88936355 -0.88936355 ...  0.81380497  1.38152781
+ -0.32164071]' has dtype incompatible with int64, please explicitly cast to a compatible dtype first.
+  test.loc[:, sensor_columns] = scaler.transform(test[sensor_columns])
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD003_zscore_report.txt
+
+============================================================
+Dataset: FD003 | Model: xgboost
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 21820
+Test windows  : 100
+Window shape  : (30, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=13.420 MAE=9.180 R2=0.895 NASA=16674.939
+Fold 2: RMSE=12.312 MAE=8.524 R2=0.912 NASA=11338.815
+Fold 3: RMSE=12.918 MAE=8.396 R2=0.903 NASA=15932.598
+Fold 4: RMSE=13.782 MAE=9.626 R2=0.889 NASA=12892.032
+Fold 5: RMSE=14.021 MAE=9.357 R2=0.885 NASA=14766.010
+
+Cross-Validation Average
+RMSE       : 13.291
+MAE        : 9.017
+R2         : 0.897
+NASA Score : 14320.879
+
+Training Final XGBoost Model...
+Selected Trees: 975
+XGBoost validation loss is not epoch-based; the preceding 5-fold engine-wise metrics are the validation results.
+Final engine-holdout validation: RMSE=12.558 MAE=8.584 R2=0.909
+
+Final NASA Test Metrics
+RMSE       : 15.779
+MAE        : 11.977
+R2         : 0.855
+NASA Score : 519.160
+
+============================================================
+Dataset: FD003 | Model: lstm
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 21820
+Test windows  : 100
+Window shape  : (30, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=11.866 MAE=8.086 R2=0.918 NASA=12205.916
+Fold 2: RMSE=10.843 MAE=7.156 R2=0.932 NASA=8635.696
+Fold 3: RMSE=11.154 MAE=7.433 R2=0.928 NASA=12702.093
+Fold 4: RMSE=15.390 MAE=11.439 R2=0.862 NASA=21002.004
+Fold 5: RMSE=14.207 MAE=11.319 R2=0.882 NASA=12246.278
+
+Cross-Validation Average
+RMSE       : 12.692
+MAE        : 9.087
+R2         : 0.904
+NASA Score : 13358.397
+
+Training Final LSTM Model...
+Best Epoch: 12
+
+FD003 LSTM final-fit diagnostics
+Best epoch             : 12
+Best validation loss   : 149.62711
+Final training loss    : 110.79952
+Final validation loss  : 149.62709
+Validation gap         : 38.82757
+Fit assessment         : possible overfitting
+Best validation MAE    : 8.42763
+
+Final NASA Test Metrics
+RMSE       : 15.371
+MAE        : 11.994
+R2         : 0.862
+NASA Score : 389.600
+
+============================================================
+Dataset: FD003 | Model: cnn_lstm
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 21820
+Test windows  : 100
+Window shape  : (30, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=13.795 MAE=9.278 R2=0.889 NASA=17498.872
+Fold 2: RMSE=11.714 MAE=7.933 R2=0.920 NASA=9354.285
+Fold 3: RMSE=11.832 MAE=7.016 R2=0.918 NASA=13655.576
+Fold 4: RMSE=13.442 MAE=8.979 R2=0.895 NASA=13218.753
+Fold 5: RMSE=12.664 MAE=7.730 R2=0.907 NASA=14324.567
+
+Cross-Validation Average
+RMSE       : 12.689
+MAE        : 8.187
+R2         : 0.906
+NASA Score : 13610.411
+
+Training Final CNN-LSTM Model...
+Best Epoch: 9
+
+FD003 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 9
+Best validation loss   : 161.10474
+Final training loss    : 120.22646
+Final validation loss  : 161.10477
+Validation gap         : 40.87831
+Fit assessment         : possible overfitting
+Best validation MAE    : 8.72144
+
+Final NASA Test Metrics
+RMSE       : 16.356
+MAE        : 12.221
+R2         : 0.844
+NASA Score : 1077.924
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD004_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD004_low_variance_sensors.txt
+
+Unique operating conditions: 10232
+
+========================================
+Operating Regime Analysis : FD004
+========================================
+Samples              : 61249
+Features             : 3
+Cluster Range        : 2 - 10
+
+Evaluating candidate clusters...
+
+Evaluating K = 2
+Evaluating K = 3
+Evaluating K = 4
+Evaluating K = 5
+Evaluating K = 6
+Evaluating K = 7
+Evaluating K = 8
+Evaluating K = 9
+Evaluating K = 10
+
+========================================
+Cluster Evaluation Metrics
+========================================
+   Clusters  ...  Calinski_Harabasz
+0         2  ...       7.770337e+04
+1         3  ...       2.631540e+05
+2         4  ...       5.666023e+05
+3         5  ...       2.168085e+06
+4         6  ...       8.432064e+09
+5         7  ...       8.844210e+09
+6         8  ...       9.003482e+09
+7         9  ...       9.687869e+09
+8        10  ...       1.116195e+10
+
+[9 rows x 5 columns]
+
+Cluster metrics saved to:
+E:\PdM\dataset\processed\regime_analysis\FD004\FD004_cluster_metrics.csv
+
+========================================
+Best Cluster Count by Metric
+========================================
+Silhouette Score     : 6
+Davies-Bouldin Index : 6
+Calinski-Harabasz    : 10
+Elbow Method         : 2
+
+========================================
+Final Recommendation
+========================================
+Recommended K : 6
+
+Vote Summary
+K = 2 : 1 vote(s)
+K = 6 : 2 vote(s)
+K = 10 : 1 vote(s)
+
+Recommendation saved to:
+E:\PdM\dataset\processed\regime_analysis\FD004\FD004_best_k.json
+
+Evaluation plots saved successfully.
+
+Optimal Clusters : 6
+
+Fitted 6 regime scalers.
+
+Operating regime preprocessing completed.
+
+Train Regime Distribution
+Regime_ID
+0    15395
+1     9224
+2     9139
+3     9091
+4     9238
+5     9162
+Name: count, dtype: int64
+
+Test Regime Distribution
+Regime_ID
+0    10382
+1     6185
+2     6107
+3     6254
+4     6054
+5     6232
+Name: count, dtype: int64
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD004_zscore_report.txt
+Temporal degradation features added for: ['Sensor_11', 'Sensor_4', 'Sensor_17', 'Sensor_3', 'Sensor_9', 'Sensor_2', 'Sensor_13', 'Sensor_8']
+Temporal feature report saved to:
+E:\PdM\outputs\temporal_features\FD004_selected_sensors.txt
+
+============================================================
+Dataset: FD004 | Model: xgboost
+============================================================
+Train engines : 249
+Test engines  : 248
+Train windows : 54028
+Test windows  : 248
+Window shape  : (30, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=15.120 MAE=10.362 R2=0.867 NASA=53394.368
+Fold 2: RMSE=14.165 MAE=9.782 R2=0.883 NASA=45076.785
+Fold 3: RMSE=14.412 MAE=10.156 R2=0.879 NASA=47981.790
+Fold 4: RMSE=16.005 MAE=10.790 R2=0.851 NASA=160708.872
+Fold 5: RMSE=16.522 MAE=10.414 R2=0.841 NASA=222317.700
+
+Cross-Validation Average
+RMSE       : 15.245
+MAE        : 10.301
+R2         : 0.864
+NASA Score : 105895.903
+
+Training Final XGBoost Model...
+Selected Trees: 770
+XGBoost validation loss is not epoch-based; the preceding 5-fold engine-wise metrics are the validation results.
+Final engine-holdout validation: RMSE=18.246 MAE=12.603 R2=0.811
+
+Final NASA Test Metrics
+RMSE       : 27.772
+MAE        : 19.682
+R2         : 0.741
+NASA Score : 6427.714
+
+============================================================
+Dataset: FD004 | Model: lstm
+============================================================
+Train engines : 249
+Test engines  : 248
+Train windows : 54028
+Test windows  : 248
+Window shape  : (30, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=15.902 MAE=10.926 R2=0.853 NASA=81281.322
+Fold 2: RMSE=15.147 MAE=10.302 R2=0.866 NASA=51538.537
+Fold 3: RMSE=15.968 MAE=12.308 R2=0.852 NASA=50312.946
+Fold 4: RMSE=17.210 MAE=12.067 R2=0.828 NASA=124352.015
+Fold 5: RMSE=16.561 MAE=11.035 R2=0.841 NASA=150866.224
+
+Cross-Validation Average
+RMSE       : 16.158
+MAE        : 11.328
+R2         : 0.848
+NASA Score : 91670.209
+
+Training Final LSTM Model...
+Best Epoch: 4
+
+FD004 LSTM final-fit diagnostics
+Best epoch             : 4
+Best validation loss   : 341.27966
+Final training loss    : 136.58078
+Final validation loss  : 341.27972
+Validation gap         : 204.69894
+Fit assessment         : possible overfitting
+Best validation MAE    : 13.39552
+
+Final NASA Test Metrics
+RMSE       : 28.182
+MAE        : 20.235
+R2         : 0.733
+NASA Score : 9006.052
+
+============================================================
+Dataset: FD004 | Model: cnn_lstm
+============================================================
+Train engines : 249
+Test engines  : 248
+Train windows : 54028
+Test windows  : 248
+Window shape  : (30, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=17.499 MAE=12.026 R2=0.822 NASA=79808.325
+Fold 2: RMSE=15.817 MAE=10.905 R2=0.854 NASA=68480.438
+Fold 3: RMSE=16.163 MAE=11.113 R2=0.848 NASA=76302.476
+Fold 4: RMSE=17.960 MAE=12.478 R2=0.813 NASA=140872.777
+Fold 5: RMSE=17.774 MAE=12.058 R2=0.817 NASA=187302.648
+
+Cross-Validation Average
+RMSE       : 17.043
+MAE        : 11.716
+R2         : 0.831
+NASA Score : 110553.333
+
+Training Final CNN-LSTM Model...
+Best Epoch: 3
+
+FD004 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 3
+Best validation loss   : 392.83905
+Final training loss    : 175.43361
+Final validation loss  : 392.83896
+Validation gap         : 217.40535
+Fit assessment         : possible overfitting
+Best validation MAE    : 14.26204
+
+Final NASA Test Metrics
+RMSE       : 29.718
+MAE        : 21.813
+R2         : 0.703
+NASA Score : 6700.201
+
+All datasets and models completed successfully.
+Total execution time: 03:03:59
+Log file saved to: logs\run_20260801_223548.log

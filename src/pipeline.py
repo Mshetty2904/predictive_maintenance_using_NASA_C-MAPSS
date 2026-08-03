@@ -17,8 +17,10 @@ from src.window_generator import (
 )
 from src.dataset_bundle import DatasetBundle
 from src.preprocess.feature_engineering import (
+    add_degradation_features,
     remove_constant_sensors,
     remove_low_variance_sensors,
+    zscore_sensor_features,
 )
 from config import (
     RANDOM_STATE,
@@ -125,6 +127,21 @@ class TrainingPipeline:
 
             print("\nTest Regime Distribution")
             print(test["Regime_ID"].value_counts().sort_index())
+
+        # All datasets receive a train-fitted global Z-score pass. For
+        # FD002/FD004 this follows the regime-wise sensor normalization.
+        train, test, _ = zscore_sensor_features(
+            train,
+            test,
+            self.dataset_name,
+        )
+
+        if self.dataset_name in REGIME_DATASETS:
+            train, test, _ = add_degradation_features(
+                train,
+                test,
+                self.dataset_name,
+            )
         # Save processed datasets
         save_processed_data(
             train,

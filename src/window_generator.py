@@ -16,7 +16,7 @@ def _feature_columns(data):
     return columns
 
 
-def create_train_windows(data, window_size=30, step_size=1):
+def create_train_windows(data, window_size=50, step_size=1):
     feature_columns = _feature_columns(data)
     X = []
     y = []
@@ -50,7 +50,7 @@ def create_train_windows(data, window_size=30, step_size=1):
     return np.array(X), np.array(y), np.array(groups)
 
 
-def create_test_windows(test, rul, window_size=30):
+def create_test_windows(test, rul, window_size=50):
     feature_columns = _feature_columns(test)
     X = []
     y = []
