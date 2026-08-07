@@ -6,6 +6,7 @@ from uuid import uuid4
 import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import GroupShuffleSplit
 
 from src.nasa_score import nasa_score
 
@@ -99,6 +100,26 @@ def print_final_metrics(metrics):
     print(f"NASA Score : {result['NASA Score']:.3f}")
 
 
+def print_per_regime_metrics(bundle, predictions):
+    """Report test metrics by operating regime when regime labels exist."""
+    if "Regime_ID" not in bundle.test.columns:
+        return
+    regime_by_engine = (
+        bundle.test.sort_values(["Engine_ID", "Cycle"])
+        .groupby("Engine_ID", sort=True)["Regime_ID"]
+        .last()
+        .to_numpy()
+    )
+    print("\nPer-regime test metrics")
+    for regime in sorted(np.unique(regime_by_engine)):
+        mask = regime_by_engine == regime
+        metrics = evaluate_model(bundle.y_test[mask], predictions[mask]).iloc[0]
+        print(
+            f"Regime {int(regime)}: RMSE={metrics['RMSE']:.3f} "
+            f"MAE={metrics['MAE']:.3f} R2={metrics['R2']:.3f}"
+        )
+
+
 def print_training_diagnostics(
     history,
     dataset,
@@ -137,13 +158,13 @@ def print_training_diagnostics(
             verbose=0,
             return_dict=True,
         )
-        final_train = float(train_result["loss"])
-        final_val = float(valid_result["loss"])
+        final_train = float(train_result.get("mse", train_result["loss"]))
+        final_val = float(valid_result.get("mse", valid_result["loss"]))
 
     gap = final_val - final_train
 
     # This is a diagnostic heuristic, not a statistical test.
-    if best_epoch < len(valid_loss) and gap > best_val * 0.25:
+    if best_epoch < len(valid_loss) and gap > max(abs(final_val), 1e-9) * 0.25:
         assessment = "possible overfitting"
     elif best_epoch == len(valid_loss) and gap < 0:
         assessment = "possible underfitting"
@@ -153,9 +174,9 @@ def print_training_diagnostics(
     print(f"\n{dataset} {model_name} final-fit diagnostics")
     print(f"Best epoch             : {best_epoch}")
     print(f"Best validation loss   : {best_val:.5f}")
-    print(f"Final training loss    : {final_train:.5f}")
-    print(f"Final validation loss  : {final_val:.5f}")
-    print(f"Validation gap         : {gap:.5f}")
+    print(f"Final training MSE     : {final_train:.5f}")
+    print(f"Final validation MSE   : {final_val:.5f}")
+    print(f"Validation MSE gap     : {gap:.5f}")
     print(f"Fit assessment         : {assessment}")
 
     if model is not None and X_valid is not None:
@@ -170,3 +191,24 @@ def print_training_diagnostics(
     elif "val_mae" in history_data:
         val_mae = np.asarray(history_data["val_mae"], dtype=float)
         print(f"Best validation MAE    : {float(np.min(val_mae)):.5f}")
+
+
+def final_window_split(bundle, validation_size, random_state):
+    """Hold out engines and validate only on their truncated final windows."""
+    splitter = GroupShuffleSplit(
+        n_splits=1,
+        test_size=validation_size,
+        random_state=random_state,
+    )
+    fit_final, valid_final = next(
+        splitter.split(bundle.X_final, bundle.y_final, groups=bundle.final_groups)
+    )
+    fit_engines = set(bundle.final_groups[fit_final])
+    valid_engines = set(bundle.final_groups[valid_final])
+    fit_idx = np.asarray(
+        [group in fit_engines for group in bundle.train_groups], dtype=bool
+    )
+    valid_idx = np.asarray(
+        [group in valid_engines for group in bundle.final_groups], dtype=bool
+    )
+    return fit_idx, valid_idx

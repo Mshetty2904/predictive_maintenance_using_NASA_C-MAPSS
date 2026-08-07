@@ -1,0 +1,4 @@
+Dataset,Model,Validation_RMSE,Validation_MAE,Validation_R2,Test_RMSE,Test_MAE,Test_R2,RMSE_Rank,MAE_Rank,R2_Rank,Average_Rank,Selected_For_SHAP,Selection_Basis
+FD002,xgboost,12.924600535677515,9.62413501739502,-0.6790968614854691,25.635,16.938,0.773,3,3,3,3.0,False,RMSE + MAE + R2 comparison; configured research choice
+FD002,lstm,8.648241319647273,6.710377216339111,0.24820905436493235,29.225,19.457,0.705,1,1,1,1.0,False,RMSE + MAE + R2 comparison; configured research choice
+FD002,cnn_lstm,11.378276327038845,8.801972389221191,-0.3013509842076063,27.173,19.308,0.745,2,2,2,2.0,True,RMSE + MAE + R2 comparison; configured research choice

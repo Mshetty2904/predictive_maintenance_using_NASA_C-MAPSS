@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import joblib
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 
@@ -68,3 +69,20 @@ class FeatureScaler:
             has_regime=has_regime,
         )
         return X_train, X_valid, X_test, scaler
+
+    def fit_transform_many(self, train_data, *other_data, has_regime=False):
+        """Fit one scaler on training windows and transform other arrays."""
+        samples, steps, features = train_data.shape
+        train_2d = train_data.reshape(-1, features).astype(np.float64)
+        start = 1 if has_regime else 0
+        scaler = StandardScaler()
+        train_scaled = train_2d.copy()
+        train_scaled[:, start:] = scaler.fit_transform(train_2d[:, start:])
+        transformed = []
+        for data in other_data:
+            n = data.shape[0]
+            data_2d = data.reshape(-1, features).astype(np.float64)
+            data_scaled = data_2d.copy()
+            data_scaled[:, start:] = scaler.transform(data_2d[:, start:])
+            transformed.append(data_scaled.reshape(n, steps, features))
+        return (train_scaled.reshape(samples, steps, features), *transformed, scaler)

@@ -1,0 +1,5 @@
+Dataset,Training engines,Test engines,Sensors,Operational settings,Window size,MAX_RUL,Training rows,Training windows
+FD001,100,100,14,3,50,125,20631,15731
+FD002,260,259,38,3,50,125,53759,41019
+FD003,100,100,14,3,50,125,24720,19820
+FD004,249,248,38,3,50,125,61249,49048

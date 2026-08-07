@@ -6,8 +6,6 @@ Selected sensors:
 Sensor_11
 Sensor_4
 Sensor_15
-Sensor_17
-Sensor_2
-Sensor_3
 Sensor_12
-Sensor_7
+Sensor_13
+Sensor_8

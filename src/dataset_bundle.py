@@ -15,6 +15,11 @@ class DatasetBundle:
         X_test,
         y_test,
         train_groups,
+        X_final,
+        y_final,
+        final_groups,
+        final_windows_by_cutoff=None,
+        final_targets_by_cutoff=None,
     ):
 
         self.dataset_name = dataset_name
@@ -30,3 +35,8 @@ class DatasetBundle:
         self.y_test = y_test
 
         self.train_groups = train_groups
+        self.X_final = X_final
+        self.y_final = y_final
+        self.final_groups = final_groups
+        self.final_windows_by_cutoff = final_windows_by_cutoff or {}
+        self.final_targets_by_cutoff = final_targets_by_cutoff or {}

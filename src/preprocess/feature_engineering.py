@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import joblib
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 from config import OUTPUT_PATH, SCALER_PATH
@@ -160,6 +161,11 @@ def zscore_sensor_features(train, test, dataset_name):
     if not sensor_columns:
         raise ValueError("No sensor columns available for Z-score normalization.")
 
+    # StandardScaler returns floats; convert the source columns first to
+    # prevent pandas integer-to-float assignment warnings.
+    train = train.astype({column: "float64" for column in sensor_columns})
+    test = test.astype({column: "float64" for column in sensor_columns})
+
     scaler = StandardScaler()
     train.loc[:, sensor_columns] = scaler.fit_transform(train[sensor_columns])
     test.loc[:, sensor_columns] = scaler.transform(test[sensor_columns])
@@ -186,14 +192,38 @@ def zscore_sensor_features(train, test, dataset_name):
     return train, test, scaler
 
 
-def add_degradation_features(train, test, dataset_name, top_n=8, window=5):
-    """Add causal degradation features for the multi-regime datasets."""
+def add_regime_one_hot_features(train, test):
+    """Expose operating-regime identity as model input features."""
+    train = train.copy()
+    test = test.copy()
+    if "Regime_ID" not in train.columns:
+        return train, test, []
+    regimes = sorted(train["Regime_ID"].dropna().unique())
+    columns = []
+    for regime in regimes:
+        column = f"Regime_OneHot_{int(regime)}"
+        columns.append(column)
+        train[column] = (train["Regime_ID"] == regime).astype("float64")
+        test[column] = (test["Regime_ID"] == regime).astype("float64")
+    return train, test, columns
+
+
+def add_degradation_features(
+    train,
+    test,
+    dataset_name,
+    top_n=6,
+    window=5,
+    features_per_regime=3,
+    add_second_derivative=True,
+):
+    """Add causal, engine-local degradation and acceleration features."""
     train = train.copy()
     test = test.copy()
     sensor_columns = [
         column for column in train.columns
         if column.startswith("Sensor_")
-        and not any(token in column for token in ("_diff1", "_roll_mean", "_roll_std"))
+        and not any(token in column for token in ("_diff1", "_diff2", "_roll_mean", "_roll_std"))
     ]
 
     correlations = {}
@@ -201,16 +231,28 @@ def add_degradation_features(train, test, dataset_name, top_n=8, window=5):
         correlation = train[[sensor, "RUL"]].corr().iloc[0, 1]
         correlations[sensor] = 0.0 if correlation != correlation else abs(correlation)
 
-    selected = sorted(
-        sensor_columns,
-        key=lambda sensor: correlations[sensor],
-        reverse=True,
-    )[:min(top_n, len(sensor_columns))]
+    selected = []
+    if "Regime_ID" in train.columns:
+        for _, regime_data in train.groupby("Regime_ID", sort=True):
+            regime_scores = {
+                sensor: abs(regime_data[[sensor, "RUL"]].corr().iloc[0, 1])
+                if regime_data[[sensor, "RUL"]].corr().iloc[0, 1] == regime_data[[sensor, "RUL"]].corr().iloc[0, 1]
+                else 0.0
+                for sensor in sensor_columns
+            }
+            selected.extend(sorted(regime_scores, key=regime_scores.get, reverse=True)[:features_per_regime])
+    if not selected:
+        selected = sorted(sensor_columns, key=correlations.get, reverse=True)
+    selected = list(dict.fromkeys(selected))[:min(top_n, len(sensor_columns))]
 
     def transform(dataframe):
         result = dataframe.copy()
+        result["_feature_order"] = range(len(result))
+        result = result.sort_values(
+            ["Engine_ID", "Cycle", "_feature_order"]
+        ).reset_index(drop=True)
         for sensor in selected:
-            grouped = result.groupby("Engine_ID")[sensor]
+            grouped = result.groupby("Engine_ID", sort=False)[sensor]
             result[f"{sensor}_diff1"] = grouped.diff().fillna(0.0)
             result[f"{sensor}_roll_mean{window}"] = grouped.transform(
                 lambda values: values.rolling(window, min_periods=1).mean()
@@ -218,10 +260,59 @@ def add_degradation_features(train, test, dataset_name, top_n=8, window=5):
             result[f"{sensor}_roll_std{window}"] = grouped.transform(
                 lambda values: values.rolling(window, min_periods=1).std(ddof=0)
             ).fillna(0.0)
-        return result
+            if add_second_derivative:
+                result[f"{sensor}_diff2"] = grouped.diff().groupby(
+                    result["Engine_ID"], sort=False
+                ).diff().fillna(0.0)
+        return result.sort_values("_feature_order").drop(
+            columns="_feature_order"
+        ).reset_index(drop=True)
 
     train = transform(train)
     test = transform(test)
+
+    audit_dir = OUTPUT_PATH / "temporal_features"
+    audit_dir.mkdir(parents=True, exist_ok=True)
+    audit_path = audit_dir / f"{dataset_name}_causal_audit.txt"
+    audit_lines = []
+    for split_name, original, engineered in (
+        ("train", train.copy(), train),
+        ("test", test.copy(), test),
+    ):
+        # Recompute from sorted source rows and compare every generated value.
+        # The comparison catches cross-engine rolling and future-looking code.
+        ordered = original.sort_values(["Engine_ID", "Cycle"]).reset_index(drop=True)
+        for sensor in selected:
+            group = ordered.groupby("Engine_ID", sort=False)[sensor]
+            expected_diff1 = group.diff().fillna(0.0).to_numpy()
+            actual_diff1 = engineered.sort_values(["Engine_ID", "Cycle"])[f"{sensor}_diff1"].to_numpy()
+            if not np.allclose(expected_diff1, actual_diff1):
+                raise AssertionError(f"Non-causal diff feature detected: {split_name}/{sensor}")
+            expected_mean = group.transform(
+                lambda values: values.rolling(window, min_periods=1).mean()
+            ).to_numpy()
+            expected_std = group.transform(
+                lambda values: values.rolling(window, min_periods=1).std(ddof=0)
+            ).fillna(0.0).to_numpy()
+            ordered_engineered = engineered.sort_values(["Engine_ID", "Cycle"])
+            if not np.allclose(
+                expected_mean,
+                ordered_engineered[f"{sensor}_roll_mean{window}"].to_numpy(),
+            ) or not np.allclose(
+                expected_std,
+                ordered_engineered[f"{sensor}_roll_std{window}"].to_numpy(),
+            ):
+                raise AssertionError(f"Non-causal rolling feature detected: {split_name}/{sensor}")
+            if add_second_derivative:
+                expected_diff2 = group.diff().groupby(
+                    ordered["Engine_ID"], sort=False
+                ).diff().fillna(0.0).to_numpy()
+                actual_diff2 = engineered.sort_values(["Engine_ID", "Cycle"])[f"{sensor}_diff2"].to_numpy()
+                if not np.allclose(expected_diff2, actual_diff2):
+                    raise AssertionError(f"Non-causal second derivative detected: {split_name}/{sensor}")
+        audit_lines.append(f"{split_name}: PASSED; engine-local, cycle-ordered, causal")
+    audit_path.write_text("\n".join(audit_lines), encoding="utf-8")
+    print(f"Temporal leakage audit passed and saved to:\n{audit_path}")
 
     output_dir = OUTPUT_PATH / "temporal_features"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -229,7 +320,12 @@ def add_degradation_features(train, test, dataset_name, top_n=8, window=5):
     with report_path.open("w", encoding="utf-8") as report:
         report.write(f"Dataset : {dataset_name}\n")
         report.write(f"Rolling window : {window}\n")
-        report.write("Features per selected sensor: diff1, rolling mean, rolling std\n\n")
+        report.write(
+            "Features per selected sensor: diff1, rolling mean, rolling std"
+        )
+        if add_second_derivative:
+            report.write(", diff2")
+        report.write("\n\n")
         report.write("Selected sensors:\n")
         report.write("\n".join(selected))
 

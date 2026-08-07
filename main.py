@@ -17,19 +17,27 @@ from config import (
     DATASETS,
     MODEL_NAMES,
     MODEL_PATH,
+    MAX_RUL,
     OUTPUT_PATH,
     PROCESSED_DATA_PATH,
     RANDOM_STATE,
     RAW_DATA_PATH,
     SCALER_PATH,
+    SHAP_MODEL_BY_DATASET,
     STEP_SIZE,
     WINDOW_SIZE,
 )
 from src.cnn_lstm_trainer import CNNLSTMTrainer
 from src.lstm_trainer import LSTMTrainer
-from src.model_utils import evaluate_model, print_dataset_info, print_final_metrics, save_metrics
+from src.model_utils import (
+    evaluate_model,
+    print_dataset_info,
+    print_final_metrics,
+    print_per_regime_metrics,
+    save_metrics,
+)
 from src.pipeline import TrainingPipeline
-from src.plots import ModelPlots
+from src.research_reporting import ResearchReporter
 from src.xgboost_trainer import XGBoostTrainer
 
 
@@ -71,7 +79,7 @@ def build_trainer(model_name):
 
 def main():
     seed_everything(RANDOM_STATE)
-    plotter = ModelPlots(OUTPUT_PATH / "plots")
+    research_results = {}
     print("\nNASA C-MAPSS Predictive Maintenance")
     print(f"Models: {', '.join(MODEL_NAMES)}")
 
@@ -84,25 +92,45 @@ def main():
             step_size=STEP_SIZE,
         )
         bundle = pipeline.run()
+        research_results[dataset] = {"bundle": bundle, "models": {}}
 
         for model_name in MODEL_NAMES:
             print_dataset_info(bundle, model_name)
             trainer = build_trainer(model_name)
-            _, predictions = trainer.train(bundle)
+            model, predictions = trainer.train(bundle)
             metrics = evaluate_model(bundle.y_test, predictions)
-            plotter.plot_actual_vs_predicted(
-                bundle.y_test, predictions, bundle.dataset_name, model_name
-            )
-            plotter.plot_residuals(
-                bundle.y_test, predictions, bundle.dataset_name, model_name
-            )
-            plotter.plot_residual_histogram(
-                bundle.y_test, predictions, bundle.dataset_name, model_name
-            )
             save_metrics(metrics, OUTPUT_PATH, bundle.dataset_name, model_name)
             print_final_metrics(metrics)
+            print_per_regime_metrics(bundle, predictions)
+            validation_metrics = getattr(trainer, "validation_metrics", {})
+            research_results[dataset]["models"][model_name] = {
+                "model": model,
+                "predictions": predictions,
+                "metrics": metrics,
+                "history": getattr(trainer, "history", None),
+                "validation_metrics": validation_metrics,
+            }
+
+        available = research_results[dataset]["models"]
+        if available:
+            # Do not select on validation MAE alone.  The reporter creates a
+            # RMSE/MAE/R2 comparison table; this explicit map records the
+            # research model chosen for SHAP for each dataset.
+            configured = SHAP_MODEL_BY_DATASET.get(dataset)
+            research_results[dataset]["best_model"] = (
+                configured if configured in available else next(iter(available))
+            )
+            print(f"Research explainability model: {research_results[dataset]['best_model']}")
 
     print("\nAll datasets and models completed successfully.")
+    reporter = ResearchReporter(
+        OUTPUT_PATH,
+        SCALER_PATH,
+        WINDOW_SIZE,
+        MAX_RUL,
+    )
+    reporter.generate(research_results)
+    print(f"Research plots and SHAP reports saved to: {OUTPUT_PATH / 'research'}")
 
 
 if __name__ == "__main__":

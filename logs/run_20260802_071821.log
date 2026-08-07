@@ -1,4 +1,4 @@
-MODEL - 7
+MODEL - 7 (BEST)
 NASA C-MAPSS Predictive Maintenance
 Models: xgboost, lstm, cnn_lstm
 

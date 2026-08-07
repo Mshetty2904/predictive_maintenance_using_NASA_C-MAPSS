@@ -13,6 +13,11 @@ def _feature_columns(data):
         for column in data.columns
         if column.startswith("Sensor_")
     )
+    columns.extend(
+        column
+        for column in sorted(data.columns)
+        if column.startswith("Regime_OneHot_")
+    )
     return columns
 
 
@@ -79,6 +84,37 @@ def create_test_windows(test, rul, window_size=50):
         y.append(rul_by_engine[engine_id])
 
     return np.array(X), np.array(y)
+
+
+def create_final_train_windows(data, window_size=50, cutoff_fraction=0.8):
+    """Create one realistic final window per held-out training engine.
+
+    Complete training engines end at RUL=0. Truncating each engine before its
+    failure creates a positive-RUL last-window validation target that matches
+    the test-time prediction task.
+    """
+    feature_columns = _feature_columns(data)
+    X, y, groups = [], [], []
+    for engine_id, engine in data.groupby("Engine_ID", sort=True):
+        engine = engine.sort_values("Cycle").reset_index(drop=True)
+        cutoff = min(
+            len(engine),
+            max(window_size, int(np.floor(len(engine) * cutoff_fraction))),
+        )
+        truncated = engine.iloc[:cutoff]
+        values = truncated[feature_columns].to_numpy(dtype=np.float64)
+        if len(values) < window_size:
+            padded = np.zeros(
+                (window_size, len(feature_columns)), dtype=np.float64
+            )
+            padded[-len(values):] = values
+            values = padded
+        else:
+            values = values[-window_size:]
+        X.append(values)
+        y.append(float(truncated.iloc[-1]["RUL"]))
+        groups.append(engine_id)
+    return np.asarray(X), np.asarray(y), np.asarray(groups)
 
 
 def flatten_windows(X):

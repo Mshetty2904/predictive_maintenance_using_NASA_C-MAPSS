@@ -1,0 +1,5 @@
+severity,sensor_checks,sensor_drift_checks,sensor_drift_rate,batches,batches_with_drift,batch_drift_rate,batches_meeting_sensor_quorum
+medium,1400,208,0.14857142857142858,100,46,0.46,20
+normal,1400,151,0.10785714285714286,100,23,0.23,19
+severe,1400,245,0.175,100,68,0.68,23
+small,1400,191,0.13642857142857143,100,39,0.39,21

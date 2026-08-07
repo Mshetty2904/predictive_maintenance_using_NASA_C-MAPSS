@@ -1,0 +1,134 @@
+
+NASA C-MAPSS Predictive Maintenance
+Models: xgboost, lstm, cnn_lstm
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD001_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD001_low_variance_sensors.txt
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD001_zscore_report.txt
+
+============================================================
+Dataset: FD001 | Model: xgboost
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 15731
+Test windows  : 100
+Window shape  : (50, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=13.926 MAE=10.700 R2=0.887 NASA=3.081
+Fold 2: RMSE=14.016 MAE=10.482 R2=0.885 NASA=3.196
+Fold 3: RMSE=12.979 MAE=9.851 R2=0.902 NASA=2.621
+Fold 4: RMSE=13.520 MAE=10.447 R2=0.893 NASA=2.934
+Fold 5: RMSE=13.095 MAE=9.708 R2=0.900 NASA=3.014
+
+Cross-Validation Average
+RMSE       : 13.507
+MAE        : 10.238
+R2         : 0.893
+NASA Score : 2.969
+
+Training Final XGBoost Model...
+Selecting tree count using held-out truncated final windows.
+Selected Trees from final-window validation: 284
+Final engine-holdout validation: RMSE=11.613 MAE=8.496 R2=-0.938
+
+Final NASA Test Metrics
+RMSE       : 14.014
+MAE        : 10.857
+R2         : 0.886
+NASA Score : 2.831
+
+============================================================
+Dataset: FD001 | Model: lstm
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 15731
+Test windows  : 100
+Window shape  : (50, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=12.347 MAE=8.626 R2=0.911 NASA=2.907
+Fold 2: RMSE=12.996 MAE=8.904 R2=0.901 NASA=2.800
+Fold 3: RMSE=11.962 MAE=8.047 R2=0.916 NASA=2.282
+Fold 4: RMSE=11.393 MAE=7.688 R2=0.924 NASA=1.925
+Fold 5: RMSE=13.070 MAE=9.738 R2=0.900 NASA=3.040
+
+Cross-Validation Average
+RMSE       : 12.354
+MAE        : 8.601
+R2         : 0.911
+NASA Score : 2.591
+
+Training Final LSTM Model...
+Best Epoch: 21
+
+FD001 LSTM final-fit diagnostics
+Best epoch             : 21
+Best validation loss   : 36.88066
+Final training MSE     : 50.21659
+Final validation MSE   : 90.34516
+Validation MSE gap     : 40.12857
+Fit assessment         : possible overfitting
+Best validation MAE    : 7.14511
+Retraining deployable LSTM on all training engines...
+
+Final NASA Test Metrics
+RMSE       : 16.166
+MAE        : 11.909
+R2         : 0.849
+NASA Score : 4.444
+
+============================================================
+Dataset: FD001 | Model: cnn_lstm
+============================================================
+Train engines : 100
+Test engines  : 100
+Train windows : 15731
+Test windows  : 100
+Window shape  : (50, 14)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=13.278 MAE=9.462 R2=0.897 NASA=2.891
+Fold 2: RMSE=15.689 MAE=11.553 R2=0.856 NASA=3.360
+Fold 3: RMSE=12.420 MAE=9.021 R2=0.910 NASA=2.311
+Fold 4: RMSE=12.993 MAE=9.751 R2=0.901 NASA=2.799
+Fold 5: RMSE=13.288 MAE=9.499 R2=0.897 NASA=2.715
+
+Cross-Validation Average
+RMSE       : 13.534
+MAE        : 9.857
+R2         : 0.892
+NASA Score : 2.815
+
+Training Final CNN-LSTM Model...
+Best Epoch: 12
+
+FD001 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 12
+Best validation loss   : 50.74041
+Final training MSE     : 41.41874
+Final validation MSE   : 78.47893
+Validation MSE gap     : 37.06019
+Fit assessment         : possible overfitting
+Best validation MAE    : 7.43238
+Retraining deployable CNN-LSTM on all training engines...
+
+Final NASA Test Metrics
+RMSE       : 18.399
+MAE        : 13.508
+R2         : 0.804
+NASA Score : 5.410
+Research explainability model: xgboost
+
+All datasets and models completed successfully.
+WARNING: SHAP generation failed for FD001: could not convert string to float: '[7.5331894E1]'
+Research plots and SHAP reports saved to: E:\PdM\outputs\research
+Total execution time: 00:36:12
+Log file saved to: logs\run_20260806_201230.log

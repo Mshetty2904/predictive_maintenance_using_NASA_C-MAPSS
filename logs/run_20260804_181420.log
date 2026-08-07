@@ -1,0 +1,313 @@
+1a
+NASA C-MAPSS Predictive Maintenance
+Models: cnn_lstm
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD002_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD002_low_variance_sensors.txt
+
+Unique operating conditions: 9824
+
+========================================
+Operating Regime Analysis : FD002
+========================================
+Samples              : 53759
+Features             : 3
+Cluster Range        : 2 - 10
+
+Evaluating candidate clusters...
+
+Evaluating K = 2
+Evaluating K = 3
+Evaluating K = 4
+Evaluating K = 5
+Evaluating K = 6
+Evaluating K = 7
+Evaluating K = 8
+Evaluating K = 9
+Evaluating K = 10
+
+========================================
+Cluster Evaluation Metrics
+========================================
+   Clusters  ...  Calinski_Harabasz
+0         2  ...       6.789473e+04
+1         3  ...       2.281360e+05
+2         4  ...       4.968524e+05
+3         5  ...       1.897869e+06
+4         6  ...       7.377668e+09
+5         7  ...       7.702519e+09
+6         8  ...       7.884369e+09
+7         9  ...       8.499977e+09
+8        10  ...       9.808113e+09
+
+[9 rows x 5 columns]
+
+Cluster metrics saved to:
+E:\PdM\dataset\processed\regime_analysis\FD002\FD002_cluster_metrics.csv
+
+========================================
+Best Cluster Count by Metric
+========================================
+Silhouette Score     : 6
+Davies-Bouldin Index : 6
+Calinski-Harabasz    : 10
+Elbow Method         : 2
+
+========================================
+Final Recommendation
+========================================
+Recommended K : 6
+
+Vote Summary
+K = 2 : 1 vote(s)
+K = 6 : 2 vote(s)
+K = 10 : 1 vote(s)
+
+Recommendation saved to:
+E:\PdM\dataset\processed\regime_analysis\FD002\FD002_best_k.json
+
+Evaluation plots saved successfully.
+
+Optimal Clusters : 6
+
+Fitted 6 regime scalers.
+
+Operating regime preprocessing completed.
+
+Train Regime Distribution
+Regime_ID
+0    13458
+1     8044
+2     8122
+3     8002
+4     8096
+5     8037
+Name: count, dtype: int64
+
+Test Regime Distribution
+Regime_ID
+0    8483
+1    5148
+2    5063
+3    5042
+4    5107
+5    5148
+Name: count, dtype: int64
+Regime identity features added: ['Regime_OneHot_0', 'Regime_OneHot_1', 'Regime_OneHot_2', 'Regime_OneHot_3', 'Regime_OneHot_4', 'Regime_OneHot_5']
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD002_zscore_report.txt
+Temporal leakage audit passed and saved to:
+E:\PdM\outputs\temporal_features\FD002_causal_audit.txt
+Temporal degradation features added for: ['Sensor_11', 'Sensor_4', 'Sensor_15', 'Sensor_12', 'Sensor_13', 'Sensor_8']
+Temporal feature report saved to:
+E:\PdM\outputs\temporal_features\FD002_selected_sensors.txt
+
+============================================================
+Dataset: FD002 | Model: cnn_lstm
+============================================================
+Train engines : 260
+Test engines  : 259
+Train windows : 41019
+Test windows  : 259
+Window shape  : (50, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=15.224 MAE=11.318 R2=0.865 NASA=3.770
+Fold 2: RMSE=15.199 MAE=11.434 R2=0.865 NASA=3.853
+Fold 3: RMSE=15.940 MAE=11.907 R2=0.852 NASA=4.001
+Fold 4: RMSE=14.524 MAE=10.559 R2=0.877 NASA=3.973
+Fold 5: RMSE=15.769 MAE=11.906 R2=0.855 NASA=4.643
+
+Cross-Validation Average
+RMSE       : 15.331
+MAE        : 11.425
+R2         : 0.863
+NASA Score : 4.048
+
+Training Final CNN-LSTM Model...
+Best Epoch: 23
+
+FD002 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 23
+Best validation loss   : 59.08947
+Final training MSE     : 118.85992
+Final validation MSE   : 123.24285
+Validation MSE gap     : 4.38293
+Fit assessment         : reasonable fit
+Best validation MAE    : 9.13097
+Retraining deployable CNN-LSTM on all training engines...
+
+Final NASA Test Metrics
+RMSE       : 30.403
+MAE        : 22.231
+R2         : 0.680
+NASA Score : 46.722
+
+Per-regime test metrics
+Regime 0: RMSE=25.681 MAE=18.391 R2=0.768
+Regime 1: RMSE=31.683 MAE=22.557 R2=0.690
+Regime 2: RMSE=35.849 MAE=26.145 R2=0.569
+Regime 3: RMSE=32.742 MAE=25.536 R2=0.659
+Regime 4: RMSE=28.061 MAE=21.205 R2=0.619
+Regime 5: RMSE=31.575 MAE=23.000 R2=0.626
+
+Constant sensor report saved to:
+E:\PdM\outputs\constant_sensors\FD004_constant_sensors.txt
+
+Low variance sensor report saved to:
+E:\PdM\outputs\low_variance_sensors\FD004_low_variance_sensors.txt
+
+Unique operating conditions: 10232
+
+========================================
+Operating Regime Analysis : FD004
+========================================
+Samples              : 61249
+Features             : 3
+Cluster Range        : 2 - 10
+
+Evaluating candidate clusters...
+
+Evaluating K = 2
+Evaluating K = 3
+Evaluating K = 4
+Evaluating K = 5
+Evaluating K = 6
+Evaluating K = 7
+Evaluating K = 8
+Evaluating K = 9
+Evaluating K = 10
+
+========================================
+Cluster Evaluation Metrics
+========================================
+   Clusters  ...  Calinski_Harabasz
+0         2  ...       7.770337e+04
+1         3  ...       2.631540e+05
+2         4  ...       5.666023e+05
+3         5  ...       2.168085e+06
+4         6  ...       8.432064e+09
+5         7  ...       8.844210e+09
+6         8  ...       9.003482e+09
+7         9  ...       9.687869e+09
+8        10  ...       1.116195e+10
+
+[9 rows x 5 columns]
+
+Cluster metrics saved to:
+E:\PdM\dataset\processed\regime_analysis\FD004\FD004_cluster_metrics.csv
+
+========================================
+Best Cluster Count by Metric
+========================================
+Silhouette Score     : 6
+Davies-Bouldin Index : 6
+Calinski-Harabasz    : 10
+Elbow Method         : 2
+
+========================================
+Final Recommendation
+========================================
+Recommended K : 6
+
+Vote Summary
+K = 2 : 1 vote(s)
+K = 6 : 2 vote(s)
+K = 10 : 1 vote(s)
+
+Recommendation saved to:
+E:\PdM\dataset\processed\regime_analysis\FD004\FD004_best_k.json
+
+Evaluation plots saved successfully.
+
+Optimal Clusters : 6
+
+Fitted 6 regime scalers.
+
+Operating regime preprocessing completed.
+
+Train Regime Distribution
+Regime_ID
+0    15395
+1     9224
+2     9139
+3     9091
+4     9238
+5     9162
+Name: count, dtype: int64
+
+Test Regime Distribution
+Regime_ID
+0    10382
+1     6185
+2     6107
+3     6254
+4     6054
+5     6232
+Name: count, dtype: int64
+Regime identity features added: ['Regime_OneHot_0', 'Regime_OneHot_1', 'Regime_OneHot_2', 'Regime_OneHot_3', 'Regime_OneHot_4', 'Regime_OneHot_5']
+
+Z-score normalization report saved to:
+E:\PdM\outputs\normalization\FD004_zscore_report.txt
+Temporal leakage audit passed and saved to:
+E:\PdM\outputs\temporal_features\FD004_causal_audit.txt
+Temporal degradation features added for: ['Sensor_11', 'Sensor_4', 'Sensor_17', 'Sensor_8', 'Sensor_13', 'Sensor_9']
+Temporal feature report saved to:
+E:\PdM\outputs\temporal_features\FD004_selected_sensors.txt
+
+============================================================
+Dataset: FD004 | Model: cnn_lstm
+============================================================
+Train engines : 249
+Test engines  : 248
+Train windows : 49048
+Test windows  : 248
+Window shape  : (50, 45)
+
+Running 5-Fold Engine-wise Cross Validation...
+Fold 1: RMSE=16.106 MAE=10.789 R2=0.852 NASA=6.649
+Fold 2: RMSE=14.505 MAE=9.217 R2=0.880 NASA=5.579
+Fold 3: RMSE=14.541 MAE=10.535 R2=0.880 NASA=4.093
+Fold 4: RMSE=17.213 MAE=11.696 R2=0.831 NASA=12.237
+Fold 5: RMSE=17.798 MAE=11.423 R2=0.820 NASA=18.828
+
+Cross-Validation Average
+RMSE       : 16.033
+MAE        : 10.732
+R2         : 0.853
+NASA Score : 9.477
+
+Training Final CNN-LSTM Model...
+Best Epoch: 5
+
+FD004 CNN-BiLSTM-Attention final-fit diagnostics
+Best epoch             : 5
+Best validation loss   : 98.35175
+Final training MSE     : 123.64536
+Final validation MSE   : 183.08875
+Validation MSE gap     : 59.44338
+Fit assessment         : possible overfitting
+Best validation MAE    : 11.09623
+Retraining deployable CNN-LSTM on all training engines...
+
+Final NASA Test Metrics
+RMSE       : 28.362
+MAE        : 20.552
+R2         : 0.729
+NASA Score : 28.877
+
+Per-regime test metrics
+Regime 0: RMSE=29.186 MAE=20.911 R2=0.663
+Regime 1: RMSE=29.697 MAE=23.983 R2=0.734
+Regime 2: RMSE=28.458 MAE=20.624 R2=0.742
+Regime 3: RMSE=25.852 MAE=17.388 R2=0.772
+Regime 4: RMSE=29.595 MAE=22.730 R2=0.718
+Regime 5: RMSE=27.130 MAE=18.467 R2=0.755
+
+All datasets and models completed successfully.
+Total execution time: 01:19:18
+Log file saved to: logs\run_20260804_181420.log

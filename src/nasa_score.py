@@ -8,4 +8,4 @@ def nasa_score(y_true, y_pred):
         np.exp(-diff / 13.0) - 1,
         np.exp(diff / 10.0) - 1,
     )
-    return np.sum(score)
+    return np.mean(score)
